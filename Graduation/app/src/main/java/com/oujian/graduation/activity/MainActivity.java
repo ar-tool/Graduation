@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
@@ -25,15 +23,13 @@ import com.oujian.graduation.fragment.MainFragment;
 import com.oujian.graduation.fragment.MyFragment;
 import com.oujian.graduation.fragment.ServiceFragment;
 import com.oujian.graduation.utils.ToastUtils;
+import com.oujian.graduation.view.SimplePopuWindow;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-
-import static android.R.attr.data;
-import static android.R.attr.logo;
 
 public class MainActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
@@ -86,6 +82,8 @@ public class MainActivity extends BaseActivity {
     }
     @Override
     protected void initViews() {
+
+        mHandler = new MyHandler(MainActivity.this);
         mTabHost.setup(MainActivity.this, getSupportFragmentManager(), R.id.main_content);
 
         mTabHost.clearAllTabs();
@@ -142,8 +140,7 @@ public class MainActivity extends BaseActivity {
         mTabHost.getTabWidget().getChildTabViewAt(SERVICE_TAG).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //弹出3个鬼
-                ToastUtils.showToast(MainActivity.this,"弹");
+               showPopuWindow(mTabHost.getTabWidget().getChildTabViewAt(SERVICE_TAG));
             }
         });
     }
@@ -153,6 +150,14 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    /**
+     * 弹出popu
+     * @param view
+     */
+    private void showPopuWindow(View view){
+        SimplePopuWindow popuWindow = new SimplePopuWindow(this);
+        popuWindow.showAsDropDown(view,0,0);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
