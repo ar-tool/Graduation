@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">信息技术服务与交流平台</string>
+    <string name="sure_exit">确认要退出吗</string>
+    <string name="sure">确认</string>
+    <string name="cancel">取消</string>
+    <string name="exit_app">再按一次退出应用</string>
+
+    <string name="show_news">显示学校最新发布的新闻公告等</string>
+</resources>
