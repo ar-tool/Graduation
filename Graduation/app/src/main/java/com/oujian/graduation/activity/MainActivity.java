@@ -90,27 +90,27 @@ public class MainActivity extends BaseActivity {
         List<TabInfo> tabInfos = new ArrayList<>();
         TabInfo info1 = new TabInfo();
         info1.clss = HomeFragment.class;
-        info1.drawableId =R.drawable.btn_close_normal ;
+        info1.drawableId =R.drawable.tab_publicity ;
         info1.label = "6";
         info1.tag = TAG_HOME;
         TabInfo info2 = new TabInfo();
         info2.clss = FriendFragment.class;
-        info2.drawableId = R.drawable.btn_close_normal ;
+        info2.drawableId = R.drawable.tab_society ;
         info2.label = "5";
         info2.tag = TAG_FRIEND;
         TabInfo info3 = new TabInfo();
         info3.clss = MainFragment.class;
-        info3.drawableId = R.drawable.btn_close_normal ;
+        info3.drawableId = R.drawable.tab_main ;
         info3.label = "4";
         info3.tag = TAG_MAIN;
         TabInfo info4 = new TabInfo();
         info4.clss = ServiceFragment.class;
-        info4.drawableId = R.drawable.btn_close_normal ;
+        info4.drawableId = R.drawable.tab_service ;
         info4.label = "3";
         info4.tag = TAG_SERVICE;
         TabInfo info5 = new TabInfo();
         info5.clss = MyFragment.class;
-        info5.drawableId =R.drawable.btn_close_normal  ;
+        info5.drawableId =R.drawable.tab_my  ;
         info5.label = "1";
         info5.tag = TAG_MY;
         tabInfos.add(info1);
@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initListeners() {
-        mTabHost.getTabWidget().setDividerDrawable(null);//去掉分割线
+        //mTabHost.getTabWidget().setDividerDrawable(null);//去掉分割线
         //第三个设置为默认显示
         mTabHost.setCurrentTabByTag(TAG_MAIN);
         mTabHost.getTabWidget().getChildTabViewAt(SERVICE_TAG).setOnClickListener(new View.OnClickListener() {
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity {
      */
     private void showPopuWindow(View view){
         SimplePopuWindow popuWindow = new SimplePopuWindow(this);
-        popuWindow.showAsDropDown(view,0,0);
+        popuWindow.showAsDropDown(view,20,0);
     }
     @Override
     protected void onDestroy() {

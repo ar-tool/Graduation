@@ -1,12 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.oujian.graduation.activity.LoginActivity">
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/login_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:clipToPadding="false"
+            app:navigationIcon="@drawable/back">
+            <TextView
+                android:id="@+id/login_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                style="@style/text_ffffff_20dp"
+                />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_100dp"
+        android:layout_marginLeft="@dimen/dimen_50dp"
+        android:layout_marginRight="@dimen/dimen_50dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="呵呵"/>
-</RelativeLayout>
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_14dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40dp"
+            android:background="@drawable/edittext_bg"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_width="@dimen/dimen_15dp"
+                android:layout_height="@dimen/dimen_17dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ico_phone"/>
+            <com.oujian.graduation.view.ClearEditText
+                android:layout_marginLeft="@dimen/dimen_18dp"
+                android:id="@+id/login_phone_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textSize="@dimen/dimen_16dp"
+                android:textColor="@color/color_3a3a3a"
+                android:hint="请输入手机号"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:background="@null"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_14dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40dp"
+            android:background="@drawable/edittext_bg"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_width="@dimen/dimen_15dp"
+                android:layout_height="@dimen/dimen_17dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ico_password"/>
+            <com.oujian.graduation.view.ClearEditText
+                android:layout_marginLeft="@dimen/dimen_18dp"
+                android:id="@+id/login_password_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textSize="@dimen/dimen_16dp"
+                android:textColor="@color/color_3a3a3a"
+                android:hint="请输入密码"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:background="@null"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/remind_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remind"/>
+            <TextView
+                android:id="@+id/login_regist_tv"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/regist"/>
+        </RelativeLayout>
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"/>
+        </LinearLayout>
+
+</LinearLayout>

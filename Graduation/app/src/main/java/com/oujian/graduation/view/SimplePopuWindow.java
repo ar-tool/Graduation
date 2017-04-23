@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.activity.LoginActivity;
@@ -22,24 +23,24 @@ import com.oujian.graduation.activity.LoginActivity;
 public class SimplePopuWindow extends PopupWindow implements View.OnClickListener{
     private Activity mContext;
     private View window;
-    private Button first,second,third;
+    private TextView first,second,third;
     public SimplePopuWindow(Activity context){
         super(context);
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         window = inflater.inflate(R.layout.popu_simple, null);
-        first = (Button)window.findViewById(R.id.first);
-        second = (Button)window.findViewById(R.id.second);
-        third = (Button)window.findViewById(R.id.third);
+        first = (TextView)window.findViewById(R.id.first);
+        second = (TextView)window.findViewById(R.id.second);
+        third = (TextView)window.findViewById(R.id.third);
         first.setOnClickListener(this);
         second.setOnClickListener(this);
         third.setOnClickListener(this);
         //设置SelectPicPopupWindow的View
         this.setContentView(window);
         //设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(dip2Px(80));
+        this.setWidth(dip2Px(60));
         //设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(dip2Px(150));
+        this.setHeight(dip2Px(60));
         //设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         //设置SelectPicPopupWindow弹出窗体动画效果

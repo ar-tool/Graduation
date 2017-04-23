@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/dimen_5dp"
+    android:background="@drawable/text_bg">
     <!-- 这里的linearLayout加android:background=""这个属性要谨慎，如果加了后，popwindow是不能半透明了的 -->
-    <Button
+    <TextView
         android:id="@+id/first"
         android:textColor="@color/color_3a3a3a"
-        android:textSize="16sp"
-        android:layout_width="@dimen/dimen_80dp"
+        android:textSize="14sp"
+        android:layout_width="@dimen/dimen_60dp"
         android:layout_height="wrap_content"
         android:text="人工智能" />
     <TextView
         android:layout_marginTop="@dimen/dimen_2dp"
         android:id="@+id/second"
         android:textColor="@color/color_3a3a3a"
-        android:textSize="16sp"
-        android:layout_width="@dimen/dimen_80dp"
+        android:textSize="14sp"
+        android:layout_width="@dimen/dimen_60dp"
         android:layout_height="wrap_content"
         android:text="技术交流" />
     <TextView
         android:id="@+id/third"
         android:textColor="@color/color_3a3a3a"
-        android:textSize="16sp"
-        android:layout_width="@dimen/dimen_80dp"
+        android:textSize="14sp"
+        android:layout_width="@dimen/dimen_60dp"
         android:layout_height="wrap_content"
         android:text="技术服务" />
 

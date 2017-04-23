@@ -16,10 +16,21 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
-
+    <style name="text_ffffff_14dp">
+        <item name="android:textColor">@color/color_fffff</item>
+        <item name="android:textSize">@dimen/dimen_14dp</item>
+    </style>
     <style name="text_ffffff_16dp">
         <item name="android:textColor">@color/color_fffff</item>
         <item name="android:textSize">@dimen/dimen_16dp</item>
+    </style>
+    <style name="text_ffffff_18dp">
+        <item name="android:textColor">@color/color_fffff</item>
+        <item name="android:textSize">@dimen/dimen_18dp</item>
+    </style>
+    <style name="text_ffffff_20dp">
+        <item name="android:textColor">@color/color_fffff</item>
+        <item name="android:textSize">@dimen/dimen_20dp</item>
     </style>
     <!-- 统一cardView属性-->
     <style name="AppCardView" parent="@style/CardView.Light">
