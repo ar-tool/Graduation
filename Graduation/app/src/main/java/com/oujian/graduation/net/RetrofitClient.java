@@ -9,6 +9,7 @@ import com.oujian.graduation.net.base.BaseApiService;
 import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
@@ -222,7 +223,11 @@ public class RetrofitClient {
                .compose(this.<BaseResponse<LoginEntity>>applySchedulers())
                 .subscribe(subscriber);
     }
-
+    public void chat(String key,String info,BaseSubscriber<ChatEntity> subscriber){
+                apiService.chat(key,info)
+                .compose(this.<ChatEntity>applySchedulers())
+                .subscribe(subscriber);
+    }
     public void post(String url, Map<String, String> parameters, Subscriber<ResponseBody> subscriber) {
         apiService.executePost(url, parameters)
                 .compose(schedulersTransformer())

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.oujian.graduation.activity.RobotChatActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/chat_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:clipToPadding="false"
+            app:navigationIcon="@drawable/back">
+            <TextView
+                android:id="@+id/chat_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/chat_robot"
+                style="@style/text_ffffff_20dp"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+         <FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <LinearLayout
+                     android:id="@+id/lin_input"
+                     android:layout_width="match_parent"
+                     android:layout_height="50dp"
+                     android:layout_alignParentBottom="true"
+                     android:background="@color/color_fafafa"
+                     android:orientation="horizontal">
+
+                     <EditText
+                         android:id="@+id/et_context"
+                         android:layout_width="0dp"
+                         android:hint="该说点什么"
+                         android:layout_height="match_parent"
+                         android:layout_weight="6" />
+
+                     <Button
+                         android:id="@+id/bt_send"
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:text="发送" />
+                 </LinearLayout>
+                 <android.support.v7.widget.RecyclerView
+                     android:id="@+id/rv_chat"
+                     android:layout_width="match_parent"
+                     android:layout_above="@id/lin_input"
+                     android:layout_height="match_parent" />
+
+             </RelativeLayout>
+         </FrameLayout>
+
+</LinearLayout>

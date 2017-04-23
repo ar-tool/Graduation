@@ -2,6 +2,7 @@ package com.oujian.graduation.net.base;
 
 
 
+import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
@@ -48,8 +49,8 @@ public interface BaseApiService {
      */
     @POST("{type}")
     Observable<BaseResponse<LoginEntity>> login(@Path("type") String type, @Query("reqJson") String req);
-
-
+    @POST("api")
+    Observable<ChatEntity> chat(@Query("key")String key,@Query("info") String info);
     @POST("{url}")
     Observable<ResponseBody> executePost(
             @Path("url") String url,

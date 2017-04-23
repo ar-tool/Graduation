@@ -15,7 +15,11 @@ public class Constant {
     public static final int DEFAULT_PAGE_SIZE_THREE = 3;
     public static final int DEFAULT_TICKET_LIST_PAGE_SIZE = 8;
     public static final int DEFAULT_POINT_CHECK_PAGE_SIZE = 8;
-    public static final String PUBLIC_KEY ="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHedLrI6g46XWHhkeVYXJ5GXOxik96tdk9/1LJ+aG1I3LD1/87OAK8wy1Ii5gtCNRL5caaNh6VSN++FY59h6QT3ID3/gesRZlpXE0zQvAsUdgixFRCeTK5uHp6GOWiQZA7uOwI4FSJGuPVuCWc4KhzVx0p4g9GZdN1Dp62uz1C1wIDAQAB";
+    public static final String QQ_COMMUNICATE = "FiEJYIcHRsR1mPA2yKe9QeGQb4v1Gs1a";
+    public static final String QQ_SERVICE = "EM55Jq8NR37DQgnMnAw89c3tKLJGaQL9";
+
+    public static final String TULING_URL = "http://www.tuling123.com/openapi/";
+    public static final String TULING_KEY = "e527af87e96c4d898e9b4340af23da06";
 
     //用来存放倒计时的时间
     public static Map<String, Long> map;
@@ -32,9 +36,6 @@ public class Constant {
     public static final String API_CODE_PIC_VER = "RXDB";
 
     public static final String Base_URL = "http://139.224.17.214/regist_api/api/";
-    public static final String THE_URL = "http://rod.oujistore.com/regist_app/";
-    public static final String ORDER_URL = "http://rod.oujistore.com/regist_app/order/";
-    public static final String USER_URL = "http://rod.oujistore.com/regist_app/user/";
 
 
 }

@@ -34,4 +34,9 @@
     <color name="item_success">#08d588</color>
     <color name="item_fail">#ff9737</color>
     <color name="item_stop">#ed3d52</color>
+
+    <color name="arc_color">#acacac</color>
+    <color name="progress_color">#434449</color>
+    <color name="mainThemeColor">#14171e</color>
+    <color name="gray">#323232</color>
 </resources>
