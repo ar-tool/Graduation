@@ -32,6 +32,14 @@
         <item name="android:textColor">@color/color_fffff</item>
         <item name="android:textSize">@dimen/dimen_20dp</item>
     </style>
+    <style name="text_3a3a3a_18dp">
+        <item name="android:textColor">@color/color_3a3a3a</item>
+        <item name="android:textSize">@dimen/dimen_18dp</item>
+    </style>
+    <style name="text_3a3a3a_20dp">
+        <item name="android:textColor">@color/color_3a3a3a</item>
+        <item name="android:textSize">@dimen/dimen_20dp</item>
+    </style>
     <!-- 统一cardView属性-->
     <style name="AppCardView" parent="@style/CardView.Light">
         <item name="cardPreventCornerOverlap">false</item>
