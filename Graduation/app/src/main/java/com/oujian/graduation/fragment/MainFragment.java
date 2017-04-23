@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
@@ -14,6 +15,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.oujian.graduation.R;
 import com.oujian.graduation.adpater.RollAdapter;
 import com.oujian.graduation.base.BaseFragment;
+import com.oujian.graduation.utils.ToastUtils;
 
 import butterknife.Bind;
 
@@ -24,6 +26,8 @@ public class MainFragment extends BaseFragment {
     private View mRootView ;
     @Bind(R.id.roll_view)
     RollPagerView mRollPagerView;
+    @Bind(R.id.ll_new)
+    RelativeLayout rl_new;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -53,7 +57,12 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-
+//        rl_new.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtils.showToast(getActivity(),"点到了，该变色");
+//            }
+//        });
     }
 
     @Override

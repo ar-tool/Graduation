@@ -42,17 +42,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_200dp">
             </com.jude.rollviewpager.RollPagerView>
+            <RelativeLayout
+                android:id="@+id/ll_new"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:background="@drawable/selector_bg"
+                android:layout_height="@dimen/dimen_40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40dp"
+                    android:gravity="center"
+                    android:text="@string/show_news"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_3a3a3a"></View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="@drawable/selector_bg"
+                android:layout_height="@dimen/dimen_40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40dp"
+                    android:gravity="center"
+                    android:text="@string/show_news"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_3a3a3a"></View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="@drawable/selector_bg"
+                android:layout_height="@dimen/dimen_40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40dp"
+                    android:gravity="center"
+                    android:text="@string/show_news"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_3a3a3a"></View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="@drawable/selector_bg"
+                android:layout_height="@dimen/dimen_40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40dp"
+                    android:gravity="center"
+                    android:text="More"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_3a3a3a"></View>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40dp"
-                android:gravity="center"
-                android:text="@string/show_news"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40dp"
-                android:gravity="center"
-                android:text="More"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
