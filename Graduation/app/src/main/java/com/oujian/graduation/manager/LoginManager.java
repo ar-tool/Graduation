@@ -39,7 +39,7 @@ public class LoginManager {
             MyContext.getInstance().resetUserInfo();
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivity(intent);
-            activity.finish();
+//            activity.finish();
             return true;
         }
     }

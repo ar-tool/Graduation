@@ -22,6 +22,7 @@ import com.oujian.graduation.fragment.HomeFragment;
 import com.oujian.graduation.fragment.MainFragment;
 import com.oujian.graduation.fragment.MyFragment;
 import com.oujian.graduation.fragment.ServiceFragment;
+import com.oujian.graduation.manager.LoginManager;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.SimplePopuWindow;
 
@@ -141,6 +142,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                showPopuWindow(mTabHost.getTabWidget().getChildTabViewAt(SERVICE_TAG));
+            }
+        });
+        //我的
+        mTabHost.getTabWidget().getChildTabViewAt(MY_TAG).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //已经登录了
+                if (!LoginManager.getInstance().gotoLogin(MainActivity.this)) {
+                    mTabHost.setCurrentTabByTag(TAG_MY);
+                }
             }
         });
     }

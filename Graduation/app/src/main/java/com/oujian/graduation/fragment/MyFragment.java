@@ -14,6 +14,7 @@ import com.oujian.graduation.R;
 import com.oujian.graduation.activity.LoginActivity;
 import com.oujian.graduation.base.BaseFragment;
 import com.oujian.graduation.common.MyContext;
+import com.oujian.graduation.utils.PreferencesUtils;
 import com.oujian.graduation.view.ExitDialog;
 
 import butterknife.Bind;
@@ -66,6 +67,8 @@ public class MyFragment extends BaseFragment {
         builder.setPositiveButton(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                PreferencesUtils.removeSharedPreferences(getActivity(), LoginActivity.KEY_SHARE_PASSWORD);
+                PreferencesUtils.removeSharedPreferences(getActivity(), LoginActivity.KEY_SHARE_SAVE_PASSWORD);
                 //设置你的操作事项
                 MyContext.getInstance().resetUserInfo();//重置个人信息
                 Intent intent = new Intent(getActivity(), LoginActivity.class);

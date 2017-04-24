@@ -14,7 +14,7 @@ import com.oujian.graduation.entity.Message;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017-04-23.
+ * Created by yi on 2017-04-23.
  */
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
