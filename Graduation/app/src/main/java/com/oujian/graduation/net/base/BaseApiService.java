@@ -2,6 +2,7 @@ package com.oujian.graduation.net.base;
 
 
 
+import com.oujian.graduation.net.entity.BaseChatRes;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.res.BaseResponse;
@@ -12,6 +13,8 @@ import java.util.Map;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -49,8 +52,8 @@ public interface BaseApiService {
      */
     @POST("{type}")
     Observable<BaseResponse<LoginEntity>> login(@Path("type") String type, @Query("reqJson") String req);
-    @POST("api")
-    Observable<ChatEntity> chat(@Query("key")String key,@Query("info") String info);
+    @GET("api")
+    Observable<ChatEntity> chat(@Query("key") String key,@Query("info") String info);
     @POST("{url}")
     Observable<ResponseBody> executePost(
             @Path("url") String url,
