@@ -22,6 +22,7 @@ import com.oujian.graduation.net.entity.BaseChatRes;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.req.ChatReq;
 import com.oujian.graduation.utils.ToastUtils;
+import com.oujian.graduation.view.SimpleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,9 @@ public class RobotChatActivity extends BaseActivity {
     Toolbar mToolbar;
     @Bind(R.id.rv_chat)
     RecyclerView recyclerView;
-    @Bind(R.id.bt_send)
-    Button bt_send;
-    @Bind(R.id.et_context)
+    @Bind(R.id.sb_send)
+    SimpleButton bt_send;
+    @Bind(R.id.et_content)
     EditText et_context;
     private MessageAdapter adapter;
     private List<Message> messages =new ArrayList<>();
@@ -70,11 +71,9 @@ public class RobotChatActivity extends BaseActivity {
     @Override
     protected void initListeners() {
     }
-    @OnClick(R.id.bt_send)
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.bt_send:
-                if(!et_context.getText().equals("") && et_context.getText()!=null){
+    @OnClick(R.id.sb_send)
+    public void onClick(){
+                if((et_context.getText().toString().equals("")==false) && et_context.getText().toString()!=null){
                     Message message =new Message(et_context.getText().toString(),Message.TYPE_MY);
                     messages.add(message);
                     adapter.notifyItemInserted(messages.size()-1);//有新消息时刷新recycleview中的显示
@@ -104,12 +103,9 @@ public class RobotChatActivity extends BaseActivity {
                             }
                         }
                     });
+                }else {
+                    ToastUtils.showToast(RobotChatActivity.this,getString(R.string.send_something));
                 }
-
-                break;
-            default:
-                break;
-        }
     }
     @Override
     protected void initData() {

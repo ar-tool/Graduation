@@ -28,8 +28,9 @@
     </android.support.design.widget.AppBarLayout>
     <com.oujian.graduation.view.CircleImageView
         android:layout_marginTop="@dimen/dimen_20dp"
-        app:border_color="@color/arc_color"
-        app:srcCompat="@drawable/ic_gf_done"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_width="0.5dp"
+        app:civ_border_color="@color/color_1b6bb6"
         android:layout_gravity="center_horizontal"
         android:layout_width="@dimen/dimen_70dp"
         android:layout_height="@dimen/dimen_70dp" />
@@ -55,6 +56,7 @@
         android:layout_height="0.5dp"
         android:background="@color/color_3a3a3a"></View>
     <RelativeLayout
+        android:id="@+id/my_modified_info"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40dp"
         android:clickable="true"
@@ -71,6 +73,7 @@
         android:layout_height="0.5dp"
         android:background="@color/color_3a3a3a"></View>
     <RelativeLayout
+        android:id="@+id/my_change_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40dp"
         android:clickable="true"

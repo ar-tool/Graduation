@@ -22,6 +22,12 @@
     <string name="more">更多</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="publicity">社交</string>
+    <string name="send_something">没有问题吗</string>
+    <string name="modified_photo"><u>修改头像</u></string>
+    <string name="change_password" >修改密码</string>
+    <string name="modify_info">个人信息修改</string>
+    <string name="phone">手机号：</string>
+    <string name="nick">昵称：</string>
+    <string name="modify">修改</string>
 </resources>

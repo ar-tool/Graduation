@@ -17,8 +17,6 @@ import com.oujian.graduation.base.BaseFragment;
 
 import butterknife.Bind;
 
-import static com.oujian.graduation.R.drawable.one;
-import static com.oujian.graduation.R.drawable.two;
 
 /**
  * A simple {@link Fragment} subclass.

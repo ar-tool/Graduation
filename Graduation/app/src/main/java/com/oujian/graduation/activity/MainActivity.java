@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.oujian.graduation.R;
@@ -165,7 +166,7 @@ public class MainActivity extends BaseActivity {
      * 弹出popu
      * @param view
      */
-    private void showPopuWindow(View view){
+    private void showPopuWindow(final View view){
         SimplePopuWindow popuWindow = new SimplePopuWindow(this);
         popuWindow.showAsDropDown(view,20,0);
     }

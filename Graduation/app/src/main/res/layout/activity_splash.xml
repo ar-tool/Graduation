@@ -2,14 +2,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/splash">
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/splash_time_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash_bg"/>
+  <com.oujian.graduation.view.SimpleButton
+      android:id="@+id/splash_skip"
+      android:layout_width="80dp"
+      android:layout_height="@dimen/dimen_40dp"
+      android:layout_gravity="right"
+      android:layout_marginRight="20dp"
+      android:layout_marginTop="30dp"
+      app:sb_text="跳过 3S"
+      app:sb_auto_check="false"
+      app:sb_bg_color="#aaFF4081"
+      app:sb_border_color="#aaFF4081"
+      app:sb_shape="arc"
+      app:sb_text_color="@android:color/white"
+      />
 </FrameLayout>

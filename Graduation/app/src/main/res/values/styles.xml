@@ -54,4 +54,9 @@
         parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">15sp</item>
         </style>
+
+    <style name="Theme_Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="gallery_ucrop_title_text">@string/gallery_ucrop_menu_crop</item>-->
+    </style>
+    <style name="Theme_Light.Default"/>
     </resources>

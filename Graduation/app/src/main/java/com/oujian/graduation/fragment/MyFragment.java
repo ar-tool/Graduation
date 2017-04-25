@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.oujian.graduation.R;
+import com.oujian.graduation.activity.ChangePasswordActivity;
 import com.oujian.graduation.activity.LoginActivity;
+import com.oujian.graduation.activity.ModifiedInfoActivity;
 import com.oujian.graduation.base.BaseFragment;
 import com.oujian.graduation.common.MyContext;
 import com.oujian.graduation.utils.PreferencesUtils;
 import com.oujian.graduation.view.ExitDialog;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +64,14 @@ public class MyFragment extends BaseFragment {
     protected void initData() {
 
     }
-
+    @OnClick(R.id.my_modified_info)
+    public void gotoModifiedInfo(){
+        startActivity(new Intent(getActivity(), ModifiedInfoActivity.class));
+    }
+    @OnClick(R.id.my_change_password)
+    public void gotoChangePassword(){
+        startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+    }
     private void getExitDialog(){
         ExitDialog.Builder builder = new ExitDialog.Builder(getActivity());
         builder.setPositiveButton(new DialogInterface.OnClickListener() {

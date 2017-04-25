@@ -10,7 +10,8 @@
         android:id="@+id/iv_right"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
-        app:border_color="@color/color_4b68f4"
+        app:civ_border_width="0.5dp"
+        app:civ_border_color="@color/color_3a3a3a"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
     </com.oujian.graduation.view.CircleImageView>
@@ -21,10 +22,11 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:gravity="right"
-        android:layout_marginTop="20dp"
+        android:background="@drawable/right_blue_bg"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/iv_right"
         android:layout_toStartOf="@+id/iv_right"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
 </RelativeLayout>

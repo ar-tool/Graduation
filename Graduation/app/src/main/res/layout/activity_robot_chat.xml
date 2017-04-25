@@ -35,24 +35,41 @@
                  android:layout_height="match_parent">
                  <LinearLayout
                      android:id="@+id/lin_input"
+                     android:gravity="center_vertical"
                      android:layout_width="match_parent"
-                     android:layout_height="50dp"
+                     android:layout_height="@dimen/dimen_40dp"
                      android:layout_alignParentBottom="true"
                      android:background="@color/color_fafafa"
                      android:orientation="horizontal">
-
                      <EditText
-                         android:id="@+id/et_context"
+                         android:id="@+id/et_content"
                          android:layout_width="0dp"
-                         android:hint="该说点什么"
-                         android:layout_height="match_parent"
-                         android:layout_weight="6" />
+                         android:layout_height="30dp"
+                         android:layout_marginBottom="3dp"
+                         android:layout_marginLeft="10dp"
+                         android:layout_marginTop="3dp"
+                         android:layout_weight="1"
+                         android:background="@drawable/shape_comment_border"
+                         android:focusableInTouchMode="true"
+                         android:gravity="center_vertical"
+                         android:hint="提出问题吧"
+                         android:inputType="textMultiLine"
+                         android:singleLine="true"
+                         android:paddingLeft="10dp"
+                         android:textColor="#333333"
+                         android:textColorHint="#cccccc"
+                         android:textSize="14sp"/>
 
-                     <Button
-                         android:id="@+id/bt_send"
-                         android:layout_width="wrap_content"
-                         android:layout_height="match_parent"
-                         android:text="发送" />
+                     <com.oujian.graduation.view.SimpleButton
+                         android:id="@+id/sb_send"
+                         android:layout_width="45dp"
+                         android:layout_height="30dp"
+                         android:layout_marginLeft="12dp"
+                         android:layout_marginRight="12dp"
+                         app:sb_border_color="@color/colorAccent"
+                         app:sb_bg_color="@color/colorAccent"
+                         app:sb_text_color="@android:color/white"
+                         app:sb_text="发送"/>
                  </LinearLayout>
                  <android.support.v7.widget.RecyclerView
                      android:id="@+id/rv_chat"
