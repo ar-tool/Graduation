@@ -2,18 +2,19 @@ package com.oujian.graduation.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.oujian.graduation.R;
-import com.oujian.graduation.adpater.HomeAdapter;
+import com.oujian.graduation.adpater.HomePagerAdapter;
 import com.oujian.graduation.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -28,11 +29,11 @@ public class HomeFragment extends BaseFragment {
     private View mRootView ;
     @Bind(R.id.home_toolBar)
     Toolbar mToolbar;
-    @Bind(R.id.home_recyclerView)
-    RecyclerView mRecyclerView;
-    @Bind(R.id.refrsh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    private HomeAdapter mAdapter;
+    @Bind(R.id.home_tabLayout)
+    TabLayout mTabLayout;
+    @Bind(R.id.home_viewPager)
+    ViewPager mViewPager;
+    private HomePagerAdapter mPagerAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,36 +52,42 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        mAdapter = new HomeAdapter(getActivity());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
 
-        mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
-        // 设置下拉进度的主题颜色
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
-    }
-
-    @Override
-    protected void initListeners() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        //使用适配器将ViewPager与Fragment绑定在一起
+        mPagerAdapter = new HomePagerAdapter(getChildFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+        //将TabLayout与ViewPager绑定在一起
+        mTabLayout.setupWithViewPager(mViewPager);
+        //设置分割线
+        LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(getActivity(),
+                R.drawable.divider_vertical));
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onRefresh() {
-                //去请求更新
-                //更新完停止刷新动画
-                mSwipeRefreshLayout.setRefreshing(false);
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.i("选中的tab",tab.getPosition()+"");
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }
 
     @Override
+    protected void initListeners() {
+
+    }
+
+    @Override
     protected void initData() {
-        List<String> messages = new ArrayList<>();
-        messages.add("消息1");
-        messages.add("消息2");
-        messages.add("消息3");
-        messages.add("消息4");
-        mAdapter.setDataList(messages);
+
     }
 }

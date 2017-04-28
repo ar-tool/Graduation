@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initListeners() {
-        //mTabHost.getTabWidget().setDividerDrawable(null);//去掉分割线
+        mTabHost.getTabWidget().setDividerDrawable(null);//去掉分割线
         //第三个设置为默认显示
         mTabHost.setCurrentTabByTag(TAG_MAIN);
         mTabHost.getTabWidget().getChildTabViewAt(SERVICE_TAG).setOnClickListener(new View.OnClickListener() {
@@ -147,6 +147,16 @@ public class MainActivity extends BaseActivity {
         });
         //我的
         mTabHost.getTabWidget().getChildTabViewAt(MY_TAG).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //已经登录了
+                if (!LoginManager.getInstance().gotoLogin(MainActivity.this)) {
+                    mTabHost.setCurrentTabByTag(TAG_MY);
+                }
+            }
+        });
+        //社交也需要登录
+        mTabHost.getTabWidget().getChildTabViewAt(FRIEND_TAG).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //已经登录了

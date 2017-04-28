@@ -9,7 +9,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/11/15.
+ * 基础适配器
+ * Created by yi on 2016/11/15.
  */
 
 public class ListBaseAdapter<T> extends RecyclerView.Adapter {

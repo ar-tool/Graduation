@@ -32,6 +32,10 @@
         <item name="android:textColor">@color/color_fffff</item>
         <item name="android:textSize">@dimen/dimen_20dp</item>
     </style>
+    <style name="text_3a3a3a_16dp">
+        <item name="android:textColor">@color/color_3a3a3a</item>
+        <item name="android:textSize">@dimen/dimen_16dp</item>
+    </style>
     <style name="text_3a3a3a_18dp">
         <item name="android:textColor">@color/color_3a3a3a</item>
         <item name="android:textSize">@dimen/dimen_18dp</item>
@@ -59,4 +63,24 @@
         <!--<item name="gallery_ucrop_title_text">@string/gallery_ucrop_menu_crop</item>-->
     </style>
     <style name="Theme_Light.Default"/>
+
+    <declare-styleable name="ExpandTextView">
+        <attr name="showLines" format="integer"/>
+    </declare-styleable>
+
+    <style name="social_pop_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
+    <style name="comment_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!-- 显示对话框时当前的屏幕是否变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
     </resources>

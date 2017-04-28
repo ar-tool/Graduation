@@ -18,27 +18,27 @@ public class UserInfo {
         return mUserInfo;
     }
 
-    public String getmAccount() {
+    public String getAccount() {
         return mAccount;
     }
 
-    public void setmAccount(String mAccount) {
+    public void setAccount(String mAccount) {
         this.mAccount = mAccount;
     }
 
-    public String getmPassword() {
+    public String getPassword() {
         return mPassword;
     }
 
-    public void setmPassword(String mPassword) {
+    public void setPassword(String mPassword) {
         this.mPassword = mPassword;
     }
 
-    public String getmUserId() {
+    public String getUserId() {
         return mUserId;
     }
 
-    public void setmUserId(String mUserId) {
+    public void setUserId(String mUserId) {
         this.mUserId = mUserId;
     }
     //判断是否已经登录的关键

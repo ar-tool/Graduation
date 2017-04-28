@@ -25,9 +25,17 @@
     <string name="publicity">社交</string>
     <string name="send_something">没有问题吗</string>
     <string name="modified_photo"><u>修改头像</u></string>
-    <string name="change_password" >修改密码</string>
+    <string name="change_password">修改密码</string>
     <string name="modify_info">个人信息修改</string>
     <string name="phone">手机号：</string>
     <string name="nick">昵称：</string>
     <string name="modify">修改</string>
+    <string name="please_input_password">请输入当前密码：</string>
+    <string name="input_again_password">请再次输入新密码：</string>
+    <string name="input_new_password">请输入新密码：</string>
+    <string name="change_pwd_tips">密码由6-18位数字字母组成</string>
+    <string name="sure_pwd">确定</string>
+    <string name="publish">发布</string>
+    <string name="tips">来给大家分享你感兴趣的话题吧</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
 </resources>

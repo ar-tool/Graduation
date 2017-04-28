@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
 import com.oujian.graduation.common.MyContext;
+import com.oujian.graduation.manager.UserInfo;
 import com.oujian.graduation.utils.PreferencesUtils;
 
 import butterknife.Bind;
@@ -67,6 +68,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
+     * 点击按钮保存信息
+     */
+    @OnClick(R.id.remind_cb)
+    public void onSaveGroupClick() {
+        //点击后改变记住状态
+        mIsSave = !mIsSave;
+    }
+    /**
      * 登录点击
      */
     @OnClick(R.id.login_btn)
@@ -87,7 +96,7 @@ public class LoginActivity extends BaseActivity {
         //假装完成先
         startActivity(new Intent(LoginActivity.this,MainActivity.class));
         //假装已经登录
-        MyContext.getInstance().getUserInfo().setmUserId("111");
+        MyContext.getInstance().getUserInfo().setUserId("1212");
         finish();
     }
     @Override

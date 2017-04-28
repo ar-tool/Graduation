@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 轮播图适配器
  * Created by yi on 2017-03-21.
  */
 

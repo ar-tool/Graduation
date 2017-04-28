@@ -8,11 +8,7 @@ import android.util.Log;
 import com.oujian.graduation.net.base.BaseApiService;
 import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
-import com.oujian.graduation.net.base.ExceptionHandle;
-import com.oujian.graduation.net.entity.BaseChatRes;
 import com.oujian.graduation.net.entity.ChatEntity;
-import com.oujian.graduation.net.entity.LoginEntity;
-import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
 
 import java.io.File;
@@ -22,16 +18,12 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -50,8 +42,6 @@ public class RetrofitClient {
     private static Retrofit retrofit;
     private Cache cache = null;
     private File httpCacheDirectory;
-
-
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
@@ -120,7 +110,7 @@ public class RetrofitClient {
         }
 
         if ( httpCacheDirectory == null) {
-            httpCacheDirectory = new File(mContext.getCacheDir(), "regist_cache");
+            httpCacheDirectory = new File(mContext.getCacheDir(), "graduation_cache");
         }
 
         try {
@@ -165,25 +155,6 @@ public class RetrofitClient {
     }
 
     /**
-     *addcookieJar
-     */
-    public static void addCookie() {
-        okHttpClient.newBuilder().cookieJar(new NovateCookieManger(mContext)).build();
-        retrofit = builder.client(okHttpClient).build();
-    }
-
-    /**
-     * ApiBaseUrl
-     *
-     * @param newApiHeaders
-     */
-    public static void changeApiHeader(Map<String, String> newApiHeaders) {
-
-        okHttpClient.newBuilder().addInterceptor(new BaseInterceptor(newApiHeaders)).build();
-        builder.client(httpClient.build()).build();
-    }
-
-    /**
      * create BaseApi  defalte ApiManager
      * @return ApiManager
      */
@@ -214,41 +185,16 @@ public class RetrofitClient {
                 .compose(this.<BaseResult>applySchedulers())
                 .subscribe(subscriber);
     }
-    /**基础请求方法
-     * @param type
-     * @param req
-     * @param subscriber
-     */
-    public void login(String type, String req, BaseSubscriber<BaseResponse<LoginEntity>> subscriber) {
-                apiService.login(type,req)
-               .compose(this.<BaseResponse<LoginEntity>>applySchedulers())
-                .subscribe(subscriber);
-    }
+
     public void chat(String key,String info ,BaseSubscriber<ChatEntity> subscriber){
                 apiService.chat(key,info)
                 .compose(this.<ChatEntity>applySchedulers())
                 .subscribe(subscriber);
     }
-    public void post(String url, Map<String, String> parameters, Subscriber<ResponseBody> subscriber) {
-        apiService.executePost(url, parameters)
-                .compose(schedulersTransformer())
-                .compose(transformer())
-                .subscribe(subscriber);
-    }
 
-    public void upload(String url, RequestBody requestBody,Subscriber<ResponseBody> subscriber) {
-        apiService.upLoadFile(url, requestBody)
-                .compose(schedulersTransformer())
-                .compose(transformer())
-                .subscribe(subscriber);
+    <T> Observable.Transformer<T, T> applySchedulers() {
+        return (Observable.Transformer<T, T>) schedulersTransformer();
     }
-
-    public void download(String url, final CallBack callBack) {
-        apiService.downloadFile(url)
-                .compose(schedulersTransformer())
-                .subscribe(new DownSubscriber<ResponseBody>(callBack));
-    }
-
 
     Observable.Transformer schedulersTransformer() {
         return new Observable.Transformer() {
@@ -269,103 +215,4 @@ public class RetrofitClient {
             }*/
         };
     }
-
-    <T> Observable.Transformer<T, T> applySchedulers() {
-        return (Observable.Transformer<T, T>) schedulersTransformer();
-    }
-
-    public <T> Observable.Transformer<BaseResponse<T>, T> transformer() {
-
-        return new Observable.Transformer() {
-
-            @Override
-            public Object call(Object observable) {
-                return ((Observable) observable).map(new HandleFuc<T>()).onErrorResumeNext(new HttpResponseFunc<T>());
-            }
-        };
-    }
-
-    public <T> Observable<T> switchSchedulers(Observable<T> observable) {
-        return observable.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-    private static class HttpResponseFunc<T> implements Func1<Throwable, Observable<T>> {
-        @Override public Observable<T> call(Throwable t) {
-            return Observable.error(ExceptionHandle.handleException(t));
-        }
-    }
-
-    private class HandleFuc<T> implements Func1<BaseResponse<T>, T> {
-        @Override
-        public T call(BaseResponse<T> response) {
-            if (!response.isOk()) throw new RuntimeException(response.getRetCode() + "" + response.getRetMsg() != null ? response.getRetMsg(): "");
-            return response.getUser();
-        }
-    }
-
-
-    /**
-     * /**
-     * execute your customer API
-     * For example:
-     *  MyApiService service =
-     *      RetrofitClient.getInstance(MainActivity.this).create(MyApiService.class);
-     *
-     *  RetrofitClient.getInstance(MainActivity.this)
-     *      .execute(service.lgon("name", "password"), subscriber)
-     *     * @param subscriber
-     */
-
-    public static <T> T execute(Observable<T> observable ,Subscriber<T> subscriber) {
-        observable.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-
-        return null;
-    }
-
-
-    /**
-     * DownSubscriber
-     * @param <ResponseBody>
-     */
-    class DownSubscriber<ResponseBody> extends Subscriber<ResponseBody> {
-        CallBack callBack;
-
-        public DownSubscriber(CallBack callBack) {
-            this.callBack = callBack;
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            if (callBack != null) {
-                callBack.onStart();
-            }
-        }
-
-        @Override
-        public void onCompleted() {
-            if (callBack != null) {
-                callBack.onCompleted();
-            }
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            if (callBack != null) {
-                callBack.onError(e);
-            }
-        }
-
-        @Override
-        public void onNext(ResponseBody responseBody) {
-            DownLoadManager.getInstance(callBack).writeResponseBodyToDisk(mContext, (okhttp3.ResponseBody) responseBody);
-
-        }
-    }
-
 }

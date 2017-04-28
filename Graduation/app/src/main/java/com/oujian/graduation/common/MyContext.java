@@ -28,7 +28,9 @@ public class MyContext {
     public Context getContext() {
         return mContext;
     }
-
+    public String getUserId() {
+        return mUserInfo.getUserId();
+    }
     public void resetUserInfo() {
         mUserInfo = new UserInfo();
     }

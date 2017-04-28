@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * 主界面消息适配器
  * Created by yi on 2017-04-24.
  */
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.oujian.graduation.activity.LoginActivity;
 import com.oujian.graduation.common.MyContext;
+import com.oujian.graduation.utils.PreferencesUtils;
 
 
 /**
@@ -39,7 +40,6 @@ public class LoginManager {
             MyContext.getInstance().resetUserInfo();
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivity(intent);
-//            activity.finish();
             return true;
         }
     }

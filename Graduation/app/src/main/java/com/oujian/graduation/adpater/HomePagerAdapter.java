@@ -8,14 +8,15 @@ import com.oujian.graduation.fragment.PublicityFragment;
 import com.oujian.graduation.fragment.PublishFragment;
 
 /**
- * Created by DIY on 2017/4/24.
+ * 首页的viewpager适配器
+ * Created by yi on 2017/4/24.
  */
 
-public class FriendPagerAdapter extends FragmentPagerAdapter {
+public class HomePagerAdapter extends FragmentPagerAdapter {
 
-    private String[] mTitles = new String[]{"关注", "话题", "推荐","发布"};
+    private String[] mTitles = new String[]{"综合新闻", "校园快讯", "学术动态","通知公告"};
 
-    public FriendPagerAdapter(FragmentManager fm) {
+    public HomePagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

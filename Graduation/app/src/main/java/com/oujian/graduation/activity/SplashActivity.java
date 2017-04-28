@@ -39,6 +39,8 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        //如果已经登录过，这里利用保存的账号和密码，进行隐蔽登录获取个人信息
+
         RxHelper.countdown(3)
                 .subscribe(new Subscriber<Integer>() {
                     @Override

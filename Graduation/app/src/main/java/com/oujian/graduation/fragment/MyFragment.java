@@ -77,6 +77,8 @@ public class MyFragment extends BaseFragment {
         builder.setPositiveButton(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                //清除已经登录的标志和登录密码，记住密码的标志
+                PreferencesUtils.removeSharedPreferences(getActivity(), LoginActivity.KEY_SHARE_ISLOGIN);
                 PreferencesUtils.removeSharedPreferences(getActivity(), LoginActivity.KEY_SHARE_PASSWORD);
                 PreferencesUtils.removeSharedPreferences(getActivity(), LoginActivity.KEY_SHARE_SAVE_PASSWORD);
                 //设置你的操作事项

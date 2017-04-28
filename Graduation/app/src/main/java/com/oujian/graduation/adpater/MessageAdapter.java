@@ -14,6 +14,7 @@ import com.oujian.graduation.entity.Message;
 import java.util.List;
 
 /**
+ * 机器人聊天界面适配器
  * Created by yi on 2017-04-23.
  */
 

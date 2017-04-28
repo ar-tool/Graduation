@@ -33,7 +33,7 @@ import rx.Observable;
  */
 public interface BaseApiService {
 
-    public static final String Base_URL = "http://139.224.17.214/regist_api/api/";
+    public static final String Base_URL = "http://139.224.17.214/regist_api/";
 
     /**
      * 接口的统一封装
@@ -42,39 +42,10 @@ public interface BaseApiService {
      * @return
      */
 
-    @POST("{type}")
-    Observable<BaseResult> getData(@Path("type") String type, @Query("reqJson") String req);
-    /**
-     * 登录
-     * @param type
-     * @param req
-     * @return
-     */
-    @POST("{type}")
-    Observable<BaseResponse<LoginEntity>> login(@Path("type") String type, @Query("reqJson") String req);
+    @POST("api")
+    Observable<BaseResult> getData(@Field("type") String type, @Field("reqJson") String req);
+
     @GET("api")
     Observable<ChatEntity> chat(@Query("key") String key,@Query("info") String info);
-    @POST("{url}")
-    Observable<ResponseBody> executePost(
-            @Path("url") String url,
-            @QueryMap Map<String, String> maps);
-
-
-    @Multipart
-    @POST("{url}")
-    Observable<ResponseBody> upLoadFile(
-            @Path("url") String url,
-            @Part("image\"; filename=\"image.jpg") RequestBody requestBody);
-
-    @POST("{url}")
-    Call<ResponseBody> uploadFiles(
-            @Path("url") String url,
-            @Path("headers") Map<String, String> headers,
-            @Part("filename") String description,
-            @PartMap() Map<String, RequestBody> maps);
-
-    @Streaming
-    @GET
-    Observable<ResponseBody> downloadFile(@Url String fileUrl);
 
 }
