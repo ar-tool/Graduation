@@ -9,7 +9,9 @@ import com.oujian.graduation.net.base.BaseApiService;
 import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.entity.ChatEntity;
-import com.oujian.graduation.net.res.BaseResult;
+import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.res.BaseResponse;
+import com.oujian.graduation.net.res.RegistRes;
 
 import java.io.File;
 import java.util.Map;
@@ -42,6 +44,8 @@ public class RetrofitClient {
     private static Retrofit retrofit;
     private Cache cache = null;
     private File httpCacheDirectory;
+    public static final String LOGIN_TYPE = "1";
+    public static final String REGIST_TYPE = "2";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
@@ -174,15 +178,23 @@ public class RetrofitClient {
         return retrofit.create(service);
     }
 
-
-    /**基础请求方法
-    * @param type
+    /**
+     * 登录
      * @param req
      * @param subscriber
      */
-    public void getData(String type,String req, BaseSubscriber<BaseResult> subscriber) {
-        apiService.getData(type,req)
-                .compose(this.<BaseResult>applySchedulers())
+    public void login(String req, BaseSubscriber<BaseResponse<LoginEntity>> subscriber){
+        apiService.login(LOGIN_TYPE,req)
+                .compose(this.<BaseResponse<LoginEntity>>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**注册
+     * @param req
+     * @param subscriber
+     */
+    public void regist(String req, BaseSubscriber<RegistRes> subscriber) {
+        apiService.regist(REGIST_TYPE,req)
+                .compose(this.<RegistRes>applySchedulers())
                 .subscribe(subscriber);
     }
 
@@ -207,12 +219,6 @@ public class RetrofitClient {
                         .observeOn(AndroidSchedulers.mainThread());
             }
 
-           /* @Override
-            public Observable call(Observable observable) {
-                return observable.subscribeOn(Schedulers.io())
-                        .unsubscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }*/
         };
     }
 }

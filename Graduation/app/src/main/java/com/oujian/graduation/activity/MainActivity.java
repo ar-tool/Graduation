@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 //已经登录了
                 if (!LoginManager.getInstance().gotoLogin(MainActivity.this)) {
-                    mTabHost.setCurrentTabByTag(TAG_MY);
+                    mTabHost.setCurrentTabByTag(TAG_FRIEND);
                 }
             }
         });

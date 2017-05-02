@@ -5,15 +5,27 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.nostra13.universalimageloader.utils.L;
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
 import com.oujian.graduation.common.MyContext;
 import com.oujian.graduation.manager.UserInfo;
+import com.oujian.graduation.net.RetrofitClient;
+import com.oujian.graduation.net.base.BaseSubscriber;
+import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.req.RegistReq;
+import com.oujian.graduation.net.res.BaseResponse;
+import com.oujian.graduation.net.res.RegistRes;
+import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.PreferencesUtils;
+import com.oujian.graduation.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -93,11 +105,29 @@ public class LoginActivity extends BaseActivity {
         //保存当前的登录状态信息
         saveAccountInfoShare();
         //登录请求，登录完成返回主界面
-        //假装完成先
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-        //假装已经登录
-        MyContext.getInstance().getUserInfo().setUserId("1212");
-        finish();
+        //开始注册
+        RegistReq req = new RegistReq();
+        req.setAccount(mAccount);
+        req.setPassword(MD5Utils.encrypt(mPassword));
+        String json = new Gson().toJson(req);
+        RetrofitClient.getInstance(LoginActivity.this).createBaseApi().login(json, new BaseSubscriber<BaseResponse<LoginEntity>>(LoginActivity.this) {
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                ToastUtils.showToast(LoginActivity.this,e.message);
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginEntity> response) {
+                if(null !=response &&response.getRetCode() == 0){
+                    UserInfo userInfo = MyContext.getInstance().getUserInfo();
+                    userInfo.setAccount(response.getRetBody().getAccount());
+                    userInfo.setPassword(response.getRetBody().getPassword());
+                    userInfo.setUserId(response.getRetBody().getId());
+                    LoginActivity.this.finish();
+
+                }
+            }
+        });
     }
     @Override
     protected void initListeners() {

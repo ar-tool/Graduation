@@ -6,7 +6,7 @@ import com.oujian.graduation.net.entity.BaseChatRes;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.res.BaseResponse;
-import com.oujian.graduation.net.res.BaseResult;
+import com.oujian.graduation.net.res.RegistRes;
 
 import java.util.Map;
 
@@ -33,7 +33,7 @@ import rx.Observable;
  */
 public interface BaseApiService {
 
-    public static final String Base_URL = "http://139.224.17.214/regist_api/";
+    public static final String Base_URL = "http://hao.oudot.cn/graduation/";
 
     /**
      * 接口的统一封装
@@ -43,7 +43,9 @@ public interface BaseApiService {
      */
 
     @POST("api")
-    Observable<BaseResult> getData(@Field("type") String type, @Field("reqJson") String req);
+    Observable<RegistRes> regist(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResponse<LoginEntity>> login(@Query("type") String type, @Query("json") String req);
 
     @GET("api")
     Observable<ChatEntity> chat(@Query("key") String key,@Query("info") String info);

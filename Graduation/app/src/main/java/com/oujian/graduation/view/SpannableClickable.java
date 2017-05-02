@@ -4,9 +4,8 @@ import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
-import com.example.update.friendzone.R;
-import com.example.update.friendzone.common.MyContext;
-
+import com.oujian.graduation.R;
+import com.oujian.graduation.common.MyContext;
 
 /**
  * @author yi

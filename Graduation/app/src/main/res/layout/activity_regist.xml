@@ -63,44 +63,9 @@
                            android:singleLine="true"
                            android:background="@null"
                            />
-                       <com.oujian.graduation.view.TimeCountButton
-                           android:id="@+id/val_code_timeBtn"
-                           android:textSize="16sp"
-                           android:layout_gravity="center_vertical"
-                           android:layout_width="@dimen/dimen_100dp"
-                           android:layout_height="@dimen/dimen_35dp"
-                           android:background="@drawable/edittext_bg"
-                           android:gravity="center"
-                           android:text="@string/get_val_code" />
+
                </LinearLayout>
-               <LinearLayout
-                   android:layout_marginTop="@dimen/dimen_14dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/dimen_40dp"
-                   android:background="@drawable/edittext_bg"
-                   android:orientation="horizontal">
-                       <ImageView
-                           android:layout_marginLeft="@dimen/dimen_16dp"
-                           android:layout_width="@dimen/dimen_15dp"
-                           android:layout_height="@dimen/dimen_17dp"
-                           android:scaleType="fitCenter"
-                           android:layout_gravity="center_vertical"
-                           android:src="@drawable/ico_phone"/>
-                       <com.oujian.graduation.view.ClearEditText
-                           android:layout_marginLeft="@dimen/dimen_18dp"
-                           android:id="@+id/regist_val_et"
-                           android:layout_width="0dp"
-                           android:layout_height="wrap_content"
-                           android:layout_weight="1"
-                           android:inputType="number"
-                           android:textSize="@dimen/dimen_16dp"
-                           android:textColor="@color/color_3a3a3a"
-                           android:hint="请输入验证码"
-                           android:layout_gravity="center_vertical"
-                           android:singleLine="true"
-                           android:background="@null"
-                           />
-               </LinearLayout>
+
            <LinearLayout
                android:layout_marginTop="@dimen/dimen_14dp"
                android:layout_width="match_parent"

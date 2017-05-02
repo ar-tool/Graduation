@@ -38,4 +38,8 @@
     <string name="publish">发布</string>
     <string name="tips">来给大家分享你感兴趣的话题吧</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
+    <string name="regist_tips">请填写完整信息</string>
+    <string name="regist_pwd">两次密码输入不一致</string>
+    <string name="regist_fail">注册失败，请重新注册</string>
+    <string name="login_fail">登录账号有误，请重新登录</string>
 </resources>

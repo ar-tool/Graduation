@@ -9,7 +9,7 @@ public class BaseResponse<T> {
 
     private int retCode;
     private String retMsg;
-    private T user;
+    private T retBody;
 
     public int getRetCode() {
         return retCode;
@@ -27,14 +27,13 @@ public class BaseResponse<T> {
         this.retMsg = retMsg;
     }
 
-    public T getUser() {
-        return user;
+    public T getRetBody() {
+        return retBody;
     }
 
-    public void setUser(T user) {
-        this.user = user;
+    public void setRetBody(T retBody) {
+        this.retBody = retBody;
     }
-
     public boolean isOk() {
         return retCode == 0;
     }

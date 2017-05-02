@@ -1,17 +1,28 @@
 package com.oujian.graduation.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
+import com.oujian.graduation.net.RetrofitClient;
+import com.oujian.graduation.net.base.BaseSubscriber;
+import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.req.RegistReq;
+import com.oujian.graduation.net.res.RegistRes;
+import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.ToastUtils;
-import com.oujian.graduation.view.TimeCountButton;
+import com.oujian.graduation.view.ClearEditText;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by DIY on 2017/4/22.
@@ -22,9 +33,15 @@ public class RegistActivity extends BaseActivity {
     @Bind(R.id.regist_toolBar)
     Toolbar mToolbar;
     @Bind(R.id.regist_account_et)
-    EditText mAccountEt;
-    @Bind(R.id.val_code_timeBtn)
-    TimeCountButton mCountButton;
+    ClearEditText mAccountEt;
+    @Bind(R.id.regist_againpwd_et)
+    ClearEditText mPasswordAgainEt;
+    @Bind(R.id.regist_password_et)
+    ClearEditText mPasswordEt;
+
+    private String mAccount;
+    private String mPassword;
+    private String mAgainPassword;
     @Override
     protected View getContentView() {
         View view =getLayoutInflater().inflate(R.layout.activity_regist,null);
@@ -33,7 +50,6 @@ public class RegistActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mCountButton.onCreate();
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -43,20 +59,44 @@ public class RegistActivity extends BaseActivity {
             }
         });
     }
-    @OnClick(R.id.val_code_timeBtn)
-    public void onGetValClick(){
-        String mobile = mAccountEt.getText().toString();
-        if (TextUtils.isEmpty(mobile)) {
-            ToastUtils.showShort(RegistActivity.this, mAccountEt.getHint().toString());
-            return;
-        }
-        mCountButton.startCountDown();
-    }
     @Override
     protected void initListeners() {
 
     }
+    @OnClick(R.id.regist_btn)
+    public void regist(){
+        mAccount = mAccountEt.getText().toString();
+        mPassword = mPasswordEt.getText().toString();
+        mAgainPassword = mPasswordAgainEt.getText().toString();
+        if(TextUtils.isEmpty(mAccount)||TextUtils.isEmpty(mPassword)||TextUtils.isEmpty(mAgainPassword)){
+            ToastUtils.showToast(RegistActivity.this,getString(R.string.regist_tips) );
+            return;
+        }
+        if(mPassword.equals(mAgainPassword) == false){
+            ToastUtils.showToast(RegistActivity.this,getString(R.string.regist_pwd) );
+            mPasswordEt.setText("");
+            mPasswordAgainEt.setText("");
+            return;
+        }
+        //开始注册
+        RegistReq req = new RegistReq();
+        req.setAccount(mAccount);
+        req.setPassword(MD5Utils.encrypt(mPassword));
+        String json = new Gson().toJson(req);
+        RetrofitClient.getInstance(RegistActivity.this).createBaseApi().regist(json, new BaseSubscriber<RegistRes>(RegistActivity.this) {
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                ToastUtils.showToast(RegistActivity.this,getString(R.string.regist_fail));
+            }
 
+            @Override
+            public void onNext(RegistRes baseResult) {
+               if(null !=baseResult &&baseResult.getRetCode() == 0){
+                  RegistActivity.this.finish();
+               }
+            }
+        });
+    }
     @Override
     protected void initData() {
 
@@ -65,6 +105,5 @@ public class RegistActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mCountButton.onDestory();
     }
 }
