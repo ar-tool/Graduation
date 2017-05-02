@@ -2,35 +2,31 @@ package com.oujian.graduation.adpater;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.oujian.graduation.R;
-import com.oujian.graduation.activity.ImagePagerActivity;
 import com.oujian.graduation.common.MyContext;
+import com.oujian.graduation.entity.ActionItem;
 import com.oujian.graduation.entity.Click;
 import com.oujian.graduation.entity.CommentConfig;
-import com.oujian.graduation.entity.FriendEntity;
 import com.oujian.graduation.entity.PingLun;
-import com.oujian.graduation.utils.GildeUtils;
+import com.oujian.graduation.net.entity.NoteEntity;
 import com.oujian.graduation.utils.TimeUtils;
 import com.oujian.graduation.view.CommentDialog;
 import com.oujian.graduation.view.CommentListView;
-import com.oujian.graduation.view.PraiseListView;
+import com.oujian.graduation.view.SnsPopupWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by DIY on 2017/4/28.
  */
 
-public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
+public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
     private LayoutInflater mLayoutInflater;
     private FriendZoneListener mListener = null;
     public void setFriendZoneListener(FriendZoneListener friendZoneListener) {
@@ -48,21 +44,21 @@ public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        FriendEntity entity = mDataList.get(position);
+        NoteEntity entity = mDataList.get(position);
         FriendViewHolder viewHolder = (FriendViewHolder) holder;
 
-        final String noteId = entity.get_id();//id
-        String name = entity.getUserName();//昵称
-        String headImg = entity.getUserImg();//头像
-        final String content = entity.getText();//内容
-        String createTime = TimeUtils.getTime(entity.getCreateTime());
-        final List<Click> favortDatas = entity.getZanList();
-        final List<PingLun> commentsDatas = entity.getPingLunList();
+        final String noteId = entity.getId();//id
+        String name = entity.getAccount();//昵称
+        //String headImg = entity.getUserImg();//头像
+        final String content = entity.getContent();//内容
+        String createTime = TimeUtils.getTime(String.valueOf(entity.getCreateTime()).substring(0,9));
+        final List<Click> favortDatas = entity.getUpvoteList();
+        final List<PingLun> commentsDatas = entity.getCommentList();
         //是否有点赞和评论
         boolean hasFavort = entity.hasFavort();
         boolean hasComment = entity.hasComment();
         //头像，姓名，时间,发布内容
-        GildeUtils.imageLoader((Activity)mContext,viewHolder.headIv,headImg);
+        //GildeUtils.imageLoader((Activity)mContext,viewHolder.headIv,headImg);
         viewHolder.nameTv.setText(name);
         viewHolder.timeTv.setText(createTime);
         if(!TextUtils.isEmpty(content)){
@@ -70,7 +66,7 @@ public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
         }
         viewHolder.contentTv.setVisibility(TextUtils.isEmpty(content) ? View.GONE : View.VISIBLE);
         //删除按钮的显示和操作
-        if(MyContext.getInstance().getUserId().equals(entity.getUserId())){
+        if(MyContext.getInstance().getUserId().equals(entity.getCreateUser())){
             viewHolder.deleteBtn.setVisibility(View.VISIBLE);
         }else{
             viewHolder.deleteBtn.setVisibility(View.GONE);
@@ -99,7 +95,6 @@ public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
             if(hasComment){//处理评论列表
                 viewHolder.commentList.setDatas(commentsDatas);
                 viewHolder.commentList.setVisibility(View.VISIBLE);
-
                 viewHolder.commentList.setOnItemClickListener(new CommentListView.OnItemClickListener() {
                     @Override
                     public void onItemClick(int commentPosition) {
@@ -108,7 +103,7 @@ public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
                             CommentDialog dialog = new CommentDialog(noteId,mContext, commentItem, position);
                             dialog.setCommitClick(new CommentDialog.OnDeleteCommitClick() {
                                 @Override
-                                public void deleteCommit() {
+                                public void deleteCommit(int postion, String noteId, String pinglunId) {
                                     mListener.delteComment(noteId,commentItem.getPingLunId());
                                 }
                             });
@@ -134,29 +129,81 @@ public class FriendAdapter extends ListBaseAdapter<FriendEntity> {
         }else{
             viewHolder.digCommentBody.setVisibility(View.GONE);
         }
+        final SnsPopupWindow snsPopupWindow = viewHolder.snsPopupWindow;
+        //判断本人是否已点赞
+        String curUserFavortId = entity.getCurUserFavortId(MyContext.getInstance().getUserId());
+        if(!TextUtils.isEmpty(curUserFavortId)){
+            snsPopupWindow.getmActionItems().get(0).mTitle = "取消";
+        }else{
+            snsPopupWindow.getmActionItems().get(0).mTitle = "赞";
+        }
+        snsPopupWindow.update();
+        snsPopupWindow.setmItemClickListener(new PopupItemClickListener(position, entity, curUserFavortId));
+        viewHolder.snsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //弹出popupwindow
+                snsPopupWindow.showPopupWindow(view);
+            }
+        });
+    }
+    // 弹窗子类项选中时的监听
+    private SnsPopupWindow.OnItemClickListener mItemClickListener;
+    private class PopupItemClickListener implements SnsPopupWindow.OnItemClickListener{
+        private String mFavorId;
+        //动态在列表中的位置
+        private int mCirclePosition;
+        private long mLasttime = 0;
+        private NoteEntity mCircleItem;
 
+        public PopupItemClickListener(int circlePosition, NoteEntity item, String favorId){
+            this.mFavorId = favorId;
+            this.mCirclePosition = circlePosition;
+            this.mCircleItem = item;
+        }
+
+
+
+        @Override
+        public void onItemClick(ActionItem actionitem, int position) {
+            switch (position) {
+                case 0://点赞、取消点赞
+                    if(System.currentTimeMillis()-mLasttime<700)//防止快速点击操作
+                        return;
+                    mLasttime = System.currentTimeMillis();
+                        if ("赞".equals(actionitem.mTitle.toString())) {
+                            //点赞
+                            if(mListener != null){
+                                mListener.onAddLike(mCirclePosition);
+                            }
+
+                        } else {
+                            //取消点赞
+                            if(mListener != null){
+                                mListener.onDeleteLike(mCirclePosition);
+                            }
+                    }
+                    break;
+                case 1://发布评论
+                    CommentConfig config = new CommentConfig();
+                    config.itemPosition = mCirclePosition;
+                    config.commentType = CommentConfig.Type.PUBLIC;
+                    if(mListener != null){
+                        mListener.onPublishComment(config);
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
-    /**
-     * 打开图片查看器
-     *
-     * @param position
-     * @param urls2
-     */
-    private void imageBrower(int position, ArrayList<String> urls2) {
-        Intent intent = new Intent(mContext, ImagePagerActivity.class);
-        // 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
-        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls2);
-        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
-        mContext.startActivity(intent);
-    }
     public interface FriendZoneListener{
         void onAddLike(int postion);
         void onDeleteLike(int position);
         void delteComment(String noteId,String commentId);
         void onPublishComment(CommentConfig commentConfig);
-        void onClickPhoto();
-        void onClickBgImg();
         void onDeleteBbs(int position,String noteId);
     }
 }

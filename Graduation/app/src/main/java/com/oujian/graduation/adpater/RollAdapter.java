@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class RollAdapter extends LoopPagerAdapter {
-    private int[] imgs = {R.drawable.one, R.drawable.two, R.drawable.three};  // 本地图片
+    private int[] imgs = {R.drawable.lunbo_1, R.drawable.lunbo_2, R.drawable.lunbo_3};  // 本地图片
     private List<String> imgUrls = new ArrayList<>();
 
     public void setData(List<String> urls){

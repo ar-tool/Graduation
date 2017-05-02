@@ -28,7 +28,7 @@
     </android.support.design.widget.AppBarLayout>
     <com.oujian.graduation.view.CircleImageView
         android:layout_marginTop="@dimen/dimen_20dp"
-        android:src="@mipmap/ic_launcher"
+        app:srcCompat="@drawable/ic_circle_avatar_default"
         app:civ_border_width="0.5dp"
         app:civ_border_color="@color/color_1b6bb6"
         android:layout_gravity="center_horizontal"
@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         style="@style/text_3a3a3a_18dp"
-        android:text="@string/nick_name"
         />
     <TextView
         android:layout_marginTop="@dimen/dimen_20dp"

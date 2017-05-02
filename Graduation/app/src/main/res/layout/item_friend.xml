@@ -15,8 +15,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginRight="10dip"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/app_icon" />
+            app:srcCompat="@drawable/ic_circle_avatar_default"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,8 +87,8 @@
 
                 <ImageView
                     android:id="@+id/friend_sns"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimen_20dp"
+                    android:layout_height="@dimen/dimen_20dp"
                     android:src="@drawable/im_snsimg"/>
             </LinearLayout>
 

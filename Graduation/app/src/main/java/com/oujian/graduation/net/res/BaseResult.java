@@ -4,7 +4,7 @@ package com.oujian.graduation.net.res;
  * Created by Administrator on 2017-04-28.
  */
 
-public class RegistRes {
+public class BaseResult {
     private int retCode;
     private String retMsg;
 

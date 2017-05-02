@@ -5,15 +5,18 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.oujian.graduation.net.entity.FriendEntity;
 import com.oujian.graduation.net.base.BaseApiService;
 import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.entity.NoteEntity;
 import com.oujian.graduation.net.res.BaseResponse;
-import com.oujian.graduation.net.res.RegistRes;
+import com.oujian.graduation.net.res.BaseResult;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +49,9 @@ public class RetrofitClient {
     private File httpCacheDirectory;
     public static final String LOGIN_TYPE = "1";
     public static final String REGIST_TYPE = "2";
+    public static final String CHANGE_PWD_TYPE = "3";
+    public static final String PUBLISH_NOTE_TYPE = "7";
+    public static final String NOTE_LIST_TYPE = "8";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
@@ -192,12 +198,40 @@ public class RetrofitClient {
      * @param req
      * @param subscriber
      */
-    public void regist(String req, BaseSubscriber<RegistRes> subscriber) {
+    public void regist(String req, BaseSubscriber<BaseResult> subscriber) {
         apiService.regist(REGIST_TYPE,req)
-                .compose(this.<RegistRes>applySchedulers())
+                .compose(this.<BaseResult>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**修改信息
+     * @param req
+     * @param subscriber
+     */
+    public void changeInfo(String req, BaseSubscriber<BaseResponse<LoginEntity>> subscriber) {
+        apiService.changeInfo(CHANGE_PWD_TYPE,req)
+                .compose(this.<BaseResponse<LoginEntity>>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**发布帖子
+     * @param req
+     * @param subscriber
+     */
+    public void pushNote(String req, BaseSubscriber<BaseResult> subscriber) {
+        apiService.pushNote(PUBLISH_NOTE_TYPE,req)
+                .compose(this.<BaseResult>applySchedulers())
                 .subscribe(subscriber);
     }
 
+    /**
+     * 获取帖子列表
+     * @param req
+     * @param subscriber
+     */
+    public void getNoteList(String req, BaseSubscriber<BaseResponse<List<NoteEntity>>> subscriber) {
+        apiService.getNoteList(NOTE_LIST_TYPE,req)
+                .compose(this.<BaseResponse<List<NoteEntity>>>applySchedulers())
+                .subscribe(subscriber);
+    }
     public void chat(String key,String info ,BaseSubscriber<ChatEntity> subscriber){
                 apiService.chat(key,info)
                 .compose(this.<ChatEntity>applySchedulers())

@@ -93,7 +93,7 @@ public class CommentDialog extends Dialog implements
 		//删除
 		case R.id.deleteTv:
 			if (commitClick!= null && mCommentItem != null) {
-				commitClick.deleteCommit();
+				commitClick.deleteCommit(mPosition,mNoteId,mCommentItem.getPingLunId());
 			}
 			dismiss();
 			break;
@@ -102,6 +102,6 @@ public class CommentDialog extends Dialog implements
 		}
 	}
 	public interface OnDeleteCommitClick{
-		void deleteCommit();
+		void deleteCommit(int postion , String noteId, final String pinglunId);
 	}
 }

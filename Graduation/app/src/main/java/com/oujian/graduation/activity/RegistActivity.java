@@ -1,11 +1,9 @@
 package com.oujian.graduation.activity;
 
-import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.oujian.graduation.R;
@@ -14,15 +12,13 @@ import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
 import com.oujian.graduation.net.req.RegistReq;
-import com.oujian.graduation.net.res.RegistRes;
+import com.oujian.graduation.net.res.BaseResult;
 import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.ClearEditText;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by DIY on 2017/4/22.
@@ -83,14 +79,14 @@ public class RegistActivity extends BaseActivity {
         req.setAccount(mAccount);
         req.setPassword(MD5Utils.encrypt(mPassword));
         String json = new Gson().toJson(req);
-        RetrofitClient.getInstance(RegistActivity.this).createBaseApi().regist(json, new BaseSubscriber<RegistRes>(RegistActivity.this) {
+        RetrofitClient.getInstance(RegistActivity.this).createBaseApi().regist(json, new BaseSubscriber<BaseResult>(RegistActivity.this) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {
                 ToastUtils.showToast(RegistActivity.this,getString(R.string.regist_fail));
             }
 
             @Override
-            public void onNext(RegistRes baseResult) {
+            public void onNext(BaseResult baseResult) {
                if(null !=baseResult &&baseResult.getRetCode() == 0){
                   RegistActivity.this.finish();
                }

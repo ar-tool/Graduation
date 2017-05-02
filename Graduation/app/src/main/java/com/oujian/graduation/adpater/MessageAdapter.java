@@ -39,10 +39,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof MeItemViewHolder){
-            ((MeItemViewHolder) holder).imageView.setImageResource(R.mipmap.ic_launcher);
+            ((MeItemViewHolder) holder).imageView.setImageResource(R.drawable.ic_circle_avatar_default);
             ((MeItemViewHolder) holder).textView.setText(mDatas.get(position).getMessage());
         }else if(holder instanceof OtherItemViewHolder){
-            ((OtherItemViewHolder) holder).imageView.setImageResource(R.mipmap.ic_launcher);
+            ((OtherItemViewHolder) holder).imageView.setImageResource(R.drawable.robot_img);
             ((OtherItemViewHolder) holder).textView.setText(mDatas.get(position).getMessage());
         }
     }

@@ -1,12 +1,14 @@
-package com.oujian.graduation.entity;
+package com.oujian.graduation.net.entity;
 
 import android.text.TextUtils;
 
-import java.util.ArrayList;
+import com.oujian.graduation.entity.Click;
+import com.oujian.graduation.entity.PingLun;
+
 import java.util.List;
 
 /**
- * Created by DIY on 2017/4/28.
+ * Created by yi on 2017/4/28.
  */
 
 public class FriendEntity {
@@ -31,14 +33,6 @@ public class FriendEntity {
      * 评论列表
      */
     private List<PingLun> pingLunList;
-    /**
-     * 正常图片集合
-     */
-    private ArrayList<String> photoList;
-    /**
-     * 缩略图集合
-     */
-    private List<String> smallPhotoList;
     /**
      * 发帖人姓名
      */
@@ -95,23 +89,6 @@ public class FriendEntity {
     public void setPingLunList(List<PingLun> pingLunList) {
         this.pingLunList = pingLunList;
     }
-
-    public ArrayList<String> getPhotoList() {
-        return photoList;
-    }
-
-    public void setPhotoList(ArrayList<String> photoList) {
-        this.photoList = photoList;
-    }
-
-    public List<String> getSmallPhotoList() {
-        return smallPhotoList;
-    }
-
-    public void setSmallPhotoList(List<String> smallPhotoList) {
-        this.smallPhotoList = smallPhotoList;
-    }
-
     public String getUserName() {
         return userName;
     }

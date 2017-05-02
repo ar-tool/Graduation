@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.oujian.graduation.view.CircleImageView  android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.oujian.graduation.view.CircleImageView  android:layout_width="@dimen/dimen_50dp"
+        android:layout_height="@dimen/dimen_50dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/iv_right"

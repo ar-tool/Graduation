@@ -2,29 +2,18 @@ package com.oujian.graduation.net.base;
 
 
 
-import com.oujian.graduation.net.entity.BaseChatRes;
+import com.oujian.graduation.net.entity.FriendEntity;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.entity.NoteEntity;
 import com.oujian.graduation.net.res.BaseResponse;
-import com.oujian.graduation.net.res.RegistRes;
+import com.oujian.graduation.net.res.BaseResult;
 
-import java.util.Map;
+import java.util.List;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
-import retrofit2.http.Streaming;
-import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -43,10 +32,15 @@ public interface BaseApiService {
      */
 
     @POST("api")
-    Observable<RegistRes> regist(@Query("type") String type, @Query("json") String req);
+    Observable<BaseResult> regist(@Query("type") String type, @Query("json") String req);
     @POST("api")
     Observable<BaseResponse<LoginEntity>> login(@Query("type") String type, @Query("json") String req);
-
+    @POST("api")
+    Observable<BaseResponse<LoginEntity>> changeInfo(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResult> pushNote(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResponse<List<NoteEntity>>> getNoteList(@Query("type") String type, @Query("json") String req);
     @GET("api")
     Observable<ChatEntity> chat(@Query("key") String key,@Query("info") String info);
 

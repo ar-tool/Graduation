@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.utils.L;
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
 import com.oujian.graduation.common.MyContext;
@@ -22,7 +20,6 @@ import com.oujian.graduation.net.base.ExceptionHandle;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.req.RegistReq;
 import com.oujian.graduation.net.res.BaseResponse;
-import com.oujian.graduation.net.res.RegistRes;
 import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.PreferencesUtils;
 import com.oujian.graduation.utils.ToastUtils;
@@ -113,7 +110,7 @@ public class LoginActivity extends BaseActivity {
         RetrofitClient.getInstance(LoginActivity.this).createBaseApi().login(json, new BaseSubscriber<BaseResponse<LoginEntity>>(LoginActivity.this) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {
-                ToastUtils.showToast(LoginActivity.this,e.message);
+                ToastUtils.showToast(LoginActivity.this,"登录失败");
             }
 
             @Override
@@ -124,7 +121,6 @@ public class LoginActivity extends BaseActivity {
                     userInfo.setPassword(response.getRetBody().getPassword());
                     userInfo.setUserId(response.getRetBody().getId());
                     LoginActivity.this.finish();
-
                 }
             }
         });
