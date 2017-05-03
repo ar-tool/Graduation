@@ -104,9 +104,9 @@ public class NoteEntity {
         String favortid = "";
         if(!TextUtils.isEmpty(curUserId) && hasFavort()){
             for(Click item : upvoteList){
-                if(curUserId.equals(item.getFriendId())){
+                if(curUserId.equals(item.getUpvoteUser())){
                     //是否应该有个点赞id/// TODO: 2016/9/23 是否应该有点赞id
-                    favortid = item.getFriendId();
+                    favortid = item.getUpvoteUser();
                     return favortid;
                 }
             }

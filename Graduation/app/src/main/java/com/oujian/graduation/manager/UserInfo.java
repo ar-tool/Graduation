@@ -10,6 +10,7 @@ public class UserInfo {
     private String mAccount = "";
     private String mPassword = "";
     private String mUserId = "";
+    private String mNickName = "";
     private static UserInfo mUserInfo = null;
     public static UserInfo getInstance(){
         if(mUserInfo == null){
@@ -20,6 +21,14 @@ public class UserInfo {
 
     public String getAccount() {
         return mAccount;
+    }
+
+    public String getNickName() {
+        return mNickName;
+    }
+
+    public void setNickName(String mNickName) {
+        this.mNickName = mNickName;
     }
 
     public void setAccount(String mAccount) {

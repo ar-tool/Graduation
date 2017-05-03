@@ -8,38 +8,57 @@ public class Click {
     /**
      * 点赞用户
      */
-    private String friendId;
+    private String account;
     /**
-     * 用户昵称
+     * 用户id
      */
-    private String friendName;
+    private String upvoteUser;
     /**
      * 点赞时间
      */
-    private String zanTime;
+    private String createTime;
+    //点赞id
+    private String id;
+    //帖子id
+    private String postId;
 
-
-    public String getFriendId() {
-        return friendId;
+    public String getAccount() {
+        return account;
     }
 
-    public void setFriendId(String friendId) {
-        this.friendId = friendId;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public String getFriendName() {
-        return friendName;
+    public String getUpvoteUser() {
+        return upvoteUser;
     }
 
-    public void setFriendName(String friendName) {
-        this.friendName = friendName;
+    public void setUpvoteUser(String upvoteUser) {
+        this.upvoteUser = upvoteUser;
     }
 
-    public String getZanTime() {
-        return zanTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setZanTime(String zanTime) {
-        this.zanTime = zanTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

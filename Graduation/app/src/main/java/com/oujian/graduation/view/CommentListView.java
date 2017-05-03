@@ -117,24 +117,25 @@ public class CommentListView extends LinearLayout {
         final CircleMovementMethod circleMovementMethod = new CircleMovementMethod(itemSelectorColor, itemSelectorColor);
 
         final PingLun bean = mDatas.get(position);
-        String name = bean.getpUserName();
-        String id = bean.getpUserId();
+        String name = bean.getAccount();
+        String id = bean.getCreateUser();
         String toReplyName = "";
 
-        toReplyName = bean.getToWhoName();
+        //toReplyName = bean.getToWhoName();
 
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(setClickableSpan(name, bean.getpUserId()));
+        builder.append(setClickableSpan(name, bean.getCreateUser()));
 
-        if (!TextUtils.isEmpty(toReplyName)&& !toReplyName.equals("Null")) {
-
-            builder.append(" 回复 ");
-            builder.append(setClickableSpan(toReplyName, bean.getTowho()));
-        }
+        //不添加对评论进行回复
+//        if (!TextUtils.isEmpty(toReplyName)&& !toReplyName.equals("Null")) {
+//
+//            builder.append(" 回复 ");
+//            builder.append(setClickableSpan(toReplyName, bean.getTowho()));
+//        }
         builder.append(": ");
         //转换表情字符
-        String contentBodyStr = bean.getValue();
+        String contentBodyStr = bean.getComment();
         builder.append(contentBodyStr);
         commentTv.setText(builder);
 
@@ -171,8 +172,8 @@ public class CommentListView extends LinearLayout {
         subjectSpanText.setSpan(new SpannableClickable(itemColor){
                                     @Override
                                     public void onClick(View widget) {
-                                        /// TODO: 2016/9/23  以后是可以点击的区域
-                                        Toast.makeText(MyContext.getInstance().getContext(), textStr + " &id = " + id, Toast.LENGTH_SHORT).show();
+                                        /// TODO: 2017/5/1  以后是可以点击的区域,暂时不进行处理
+                                        //Toast.makeText(MyContext.getInstance().getContext(), textStr + " &id = " + id, Toast.LENGTH_SHORT).show();
                                     }
                                 }, 0, subjectSpanText.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

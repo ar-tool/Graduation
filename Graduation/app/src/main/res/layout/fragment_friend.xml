@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_e3e3e3"
     android:orientation="vertical">
     <RelativeLayout
@@ -41,33 +42,47 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/editTextBodyLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:background="#f6f6f6"
-            android:orientation="horizontal"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40dp"
+            android:background="@color/color_fafafa"
+            android:orientation="horizontal">
             <EditText
                 android:id="@+id/circleEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:layout_weight="1"
-                android:hint="说点什么..."
-                />
-            <ImageView
+                android:background="@drawable/shape_comment_border"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="写出你的想法"
+                android:inputType="textMultiLine"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:textColor="#333333"
+                android:textColorHint="#cccccc"
+                android:textSize="14sp"/>
+
+            <com.oujian.graduation.view.SimpleButton
                 android:id="@+id/sendIv"
-                android:layout_width="@dimen/dimen_40dp"
-                android:layout_height="@dimen/dimen_40dp"
-                android:layout_marginLeft="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/edit_send" />
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                app:sb_border_color="@color/colorAccent"
+                app:sb_bg_color="@color/color_3ad19a"
+                app:sb_text_color="@android:color/white"
+                app:sb_text="发送"/>
         </LinearLayout>
         <com.github.jdsjlzx.recyclerview.LRecyclerView
             android:id="@+id/friend_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/editTextBodyLl"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+            android:layout_above="@+id/editTextBodyLl">
+        </com.github.jdsjlzx.recyclerview.LRecyclerView>
 
     </RelativeLayout>
 </LinearLayout>

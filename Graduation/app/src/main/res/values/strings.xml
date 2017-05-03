@@ -42,7 +42,7 @@
     <string name="regist_pwd">两次密码输入不一致</string>
     <string name="regist_fail">注册失败，请重新注册</string>
     <string name="login_fail">登录账号有误，请重新登录</string>
-    <string name="tips1">密码只能是6-18位的数字或字母</string>
+    <string name="tips1">密码只能是6-18位的数字和字母</string>
     <string name="tips2">请再次输入新密码</string>
     <string name="tips3">请输入新密码</string>
     <string name="tips4">请输入当前密码</string>

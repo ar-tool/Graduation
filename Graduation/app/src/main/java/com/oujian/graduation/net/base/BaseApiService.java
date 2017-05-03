@@ -2,7 +2,6 @@ package com.oujian.graduation.net.base;
 
 
 
-import com.oujian.graduation.net.entity.FriendEntity;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.entity.NoteEntity;
@@ -36,11 +35,15 @@ public interface BaseApiService {
     @POST("api")
     Observable<BaseResponse<LoginEntity>> login(@Query("type") String type, @Query("json") String req);
     @POST("api")
-    Observable<BaseResponse<LoginEntity>> changeInfo(@Query("type") String type, @Query("json") String req);
+    Observable<BaseResult> changeInfo(@Query("type") String type, @Query("json") String req);
     @POST("api")
     Observable<BaseResult> pushNote(@Query("type") String type, @Query("json") String req);
     @POST("api")
     Observable<BaseResponse<List<NoteEntity>>> getNoteList(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResult> addLike(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResult> comment(@Query("type") String type, @Query("json") String req);
     @GET("api")
     Observable<ChatEntity> chat(@Query("key") String key,@Query("info") String info);
 

@@ -5,79 +5,66 @@ package com.oujian.graduation.entity;
  */
 public class PingLun {
     //评论Id
-    private String pingLunId;
+    private String id;
 
     //评论的用户，
-    private String pUserId;
+    private String account;
+    //帖子id
+    private String postId;
     /**
-     * 评论的用户昵称
+     * 评论人id
      */
-    private String pUserName;
-    //对谁的评论，Null为评论帖子
-    private String towho;
-    /**
-     * 被评论人昵称
-     */
-    private String toWhoName;
+    private String createUser;
     //评论时间
-    private String pingLunTime;
+    private String createTime;
     //评论内容
-    private String value;
+    private String comment;
 
-
-    public String getpUserId() {
-        return pUserId;
+    public String getId() {
+        return id;
     }
 
-    public void setpUserId(String pUserId) {
-        this.pUserId = pUserId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getpUserName() {
-        return pUserName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setpUserName(String pUserName) {
-        this.pUserName = pUserName;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public String getTowho() {
-        return towho;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setTowho(String towho) {
-        this.towho = towho;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
-    public String getToWhoName() {
-        return toWhoName;
+    public String getCreateUser() {
+        return createUser;
     }
 
-    public void setToWhoName(String toWhoName) {
-        this.toWhoName = toWhoName;
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
     }
 
-    public String getPingLunId() {
-        return pingLunId;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setPingLunId(String pingLunId) {
-        this.pingLunId = pingLunId;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getPingLunTime() {
-        return pingLunTime;
+    public String getComment() {
+        return comment;
     }
 
-    public void setPingLunTime(String pingLunTime) {
-        this.pingLunTime = pingLunTime;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

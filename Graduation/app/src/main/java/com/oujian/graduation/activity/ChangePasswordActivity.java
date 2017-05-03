@@ -8,8 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
+import com.oujian.graduation.common.MyContext;
+import com.oujian.graduation.net.RetrofitClient;
+import com.oujian.graduation.net.base.BaseSubscriber;
+import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.req.ModifyInfoReq;
+import com.oujian.graduation.net.res.BaseResult;
+import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.ClearEditText;
 
@@ -86,6 +94,26 @@ public class ChangePasswordActivity extends BaseActivity {
             return;
         }
         //开始发送请求
+        ModifyInfoReq req = new ModifyInfoReq();
+        req.setAccount(MyContext.getInstance().getUserInfo().getAccount());
+        req.setPassword(MyContext.getInstance().getUserInfo().getPassword());
+        req.setNewPassword(MD5Utils.encrypt(mNewPassword));
+        String json = new Gson().toJson(req);
+        RetrofitClient.getInstance(ChangePasswordActivity.this).createBaseApi().changeInfo(json, new BaseSubscriber<BaseResult>(ChangePasswordActivity.this) {
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                ToastUtils.showToast(ChangePasswordActivity.this,"修改出错了!");
+            }
+
+            @Override
+            public void onNext(BaseResult baseResult) {
+                if(baseResult.getRetCode() == 0){
+                    MyContext.getInstance().getUserInfo().setPassword(mNewPassword);
+                    ToastUtils.showToast(ChangePasswordActivity.this,"修改成功");
+                    ChangePasswordActivity.this.finish();
+                }
+            }
+        });
     }
     @Override
     protected void initData() {

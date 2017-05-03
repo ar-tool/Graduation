@@ -43,13 +43,16 @@ import com.oujian.graduation.entity.PingLun;
 import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
-import com.oujian.graduation.net.entity.FriendEntity;
 import com.oujian.graduation.net.entity.NoteEntity;
+import com.oujian.graduation.net.req.AddLikeReq;
+import com.oujian.graduation.net.req.CommentReq;
 import com.oujian.graduation.net.req.NoteListReq;
 import com.oujian.graduation.net.res.BaseResponse;
+import com.oujian.graduation.net.res.BaseResult;
 import com.oujian.graduation.utils.CommonUtils;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.CommentListView;
+import com.oujian.graduation.view.SimpleButton;
 
 import java.util.List;
 
@@ -77,7 +80,7 @@ public class FriendFragment extends BaseFragment {
     EditText editText;
     //发送
     @Bind(R.id.sendIv)
-    ImageView sendImg;
+    SimpleButton sendImg;
 
     private LinearLayoutManager mLinearLayoutManager;
     private FriendAdapter mAdapter;
@@ -132,30 +135,35 @@ public class FriendFragment extends BaseFragment {
             }
         });
         mLRecyclerView.setRefreshing(true);//初始化刷新一下,获取数据
-        mLRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
 
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
         mAdapter.setFriendZoneListener(new FriendAdapter.FriendZoneListener() {
             @Override
-            public void onAddLike(int postion) {
+            public void onAddLike(final int postion) {
                 //点赞
-                NoteEntity entity = mAdapter.getDataList().get(postion);
-                //
-                Click click = new Click();
-                click.setFriendId("");
-                click.setFriendName("123");
-                click.setZanTime("");
-                entity.getUpvoteList().add(click);
-                mAdapter.notifyItemChanged(postion);
+                final NoteEntity entity = mAdapter.getDataList().get(postion);
+                final AddLikeReq req = new AddLikeReq();
+                req.setUserId(MyContext.getInstance().getUserId());
+                req.setPostId(entity.getId());
+                //发送请求
+                String json = new Gson().toJson(req);
+                RetrofitClient.getInstance(getActivity()).createBaseApi().addLike(json, new BaseSubscriber<BaseResult>(getActivity()) {
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable e) {
+                        ToastUtils.showToast(getActivity(),"点赞失败");
+                    }
 
+                    @Override
+                    public void onNext(BaseResult baseResult) {
+                        Click click = new Click();
+                        click.setPostId(entity.getId());
+                        click.setAccount(MyContext.getInstance().getUserInfo().getAccount());
+                        click.setCreateTime("");
+                        click.setUpvoteUser(MyContext.getInstance().getUserId());
+                        click.setId("");
+                        entity.getUpvoteList().add(click);
+                        mAdapter.notifyItemChanged(postion);
+                    }
+                });
             }
 
             @Override
@@ -164,20 +172,11 @@ public class FriendFragment extends BaseFragment {
             }
 
             @Override
-            public void delteComment(String noteId, String commentId) {
-                    //删除评论
-            }
-
-            @Override
             public void onPublishComment(CommentConfig commentConfig) {
-                Log.i("121",""+commentConfig.itemPosition);
                 //只是弹出输入框
                 updateEditTextBodyVisible(View.VISIBLE, commentConfig);
             }
-            @Override
-            public void onDeleteBbs(int position, String noteId) {
-                //删除帖子
-            }
+
         });
 
         //发送评论，这里才是评论请求
@@ -186,37 +185,39 @@ public class FriendFragment extends BaseFragment {
             public void onClick(View v) {
 
                 //发布评论
-                String content =  editText.getText().toString().trim();
+                final String content =  editText.getText().toString().trim();
                 if(TextUtils.isEmpty(content)){
                     Toast.makeText(getActivity(), "评论内容不能为空...", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                NoteEntity bbs = (NoteEntity) mAdapter.getDataList().get(commentConfig.itemPosition);
+                final NoteEntity bbs = (NoteEntity) mAdapter.getDataList().get(commentConfig.itemPosition);
+                CommentReq req = new CommentReq();
+                req.setPostId(bbs.getId());
+                req.setUserId(MyContext.getInstance().getUserId());
+                req.setComment(content);
+                String json = new Gson().toJson(req);
+                RetrofitClient.getInstance(getActivity()).createBaseApi().comment(json, new BaseSubscriber<BaseResult>(getActivity()) {
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable e) {
+                        ToastUtils.showToast(getActivity(),"评论失败");
+                    }
 
-                int postion = commentConfig.itemPosition;
-                String noteId = bbs.getId();
-                String towho = commentConfig.towho;
-                String value =content;
-                String pinglunId = "Null";
-                if(bbs.hasComment()){
-                    pinglunId = bbs.getCommentList().get(commentConfig.commentPosition).getPingLunId();
-                }
-                PingLun pingLun = new PingLun();
-                pingLun.setTowho(commentConfig.towho);
-                pingLun.setPingLunId(pinglunId);
-                pingLun.setValue(content);
-                pingLun.setpUserId(MyContext.getInstance().getUserId());
-                pingLun.setpUserName(MyContext.getInstance().getUserInfo().getAccount());
-                pingLun.setToWhoName(commentConfig.towhoName);
-                updateEditTextBodyVisible(View.GONE, null);
-                //如果发表评论成功
-                //getPresenter().addComment(postion,noteId,towho,pinglunId,value,pingLun);
-                if(pingLun != null){
-                    NoteEntity item = (NoteEntity) mAdapter.getDataList().get(postion);
-                    item.getCommentList().add(pingLun);
-                    mAdapter.notifyDataSetChanged();
-                    //circleAdapter.notifyItemChanged(circlePosition+1);
-                }
+                    @Override
+                    public void onNext(BaseResult baseResult) {
+                        if(baseResult.getRetCode() == 0){
+                            PingLun pingLun = new PingLun();
+                            pingLun.setId("");
+                            pingLun.setCreateUser(MyContext.getInstance().getUserId());
+                            pingLun.setAccount(MyContext.getInstance().getUserInfo().getAccount());
+                            pingLun.setComment(content);
+                            pingLun.setPostId(bbs.getId());
+                            pingLun.setCreateTime("");
+                            NoteEntity item = (NoteEntity) mAdapter.getDataList().get(commentConfig.itemPosition);
+                            item.getCommentList().add(pingLun);
+                            mAdapter.notifyItemChanged(commentConfig.itemPosition);
+                        }
+                    }
+                });
                 //清空评论文本
                 editText.setText("");
             }
@@ -271,7 +272,7 @@ public class FriendFragment extends BaseFragment {
         RetrofitClient.getInstance(getActivity()).createBaseApi().getNoteList(json, new BaseSubscriber<BaseResponse<List<NoteEntity>>>(getActivity()) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {
-                ToastUtils.showToast(getActivity(),"获取帖子失败");
+                ToastUtils.showToast(getActivity(),"没有帖子内容");
             }
 
             @Override

@@ -85,8 +85,8 @@ public class PraiseListView extends AppCompatTextView {
             for (int i=0; i<datas.size(); i++){
                 item = datas.get(i);
                 if(item != null){
-                    if(item.getFriendName() != null){
-                        builder.append(setClickableSpan(DecodeUtils.getString(item.getFriendName()), i));
+                    if(item.getAccount() != null){
+                        builder.append(setClickableSpan(DecodeUtils.getString(item.getAccount()), i));
                     }
                     if(i != datas.size()-1){
                         builder.append(", ");

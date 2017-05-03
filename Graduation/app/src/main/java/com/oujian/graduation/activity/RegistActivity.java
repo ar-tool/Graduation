@@ -89,6 +89,8 @@ public class RegistActivity extends BaseActivity {
             public void onNext(BaseResult baseResult) {
                if(null !=baseResult &&baseResult.getRetCode() == 0){
                   RegistActivity.this.finish();
+               }else {
+                   ToastUtils.showToast(RegistActivity.this,baseResult.getRetMsg());
                }
             }
         });

@@ -65,20 +65,20 @@ public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
             viewHolder.contentTv.setText(content);
         }
         viewHolder.contentTv.setVisibility(TextUtils.isEmpty(content) ? View.GONE : View.VISIBLE);
-        //删除按钮的显示和操作
-        if(MyContext.getInstance().getUserId().equals(entity.getCreateUser())){
-            viewHolder.deleteBtn.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.deleteBtn.setVisibility(View.GONE);
-        }
-        viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null){
-                    mListener.onDeleteBbs(position,noteId);
-                }
-            }
-        });
+        //删除按钮的显示和操作，隐藏删帖功能
+//        if(MyContext.getInstance().getUserId().equals(entity.getCreateUser())){
+//            viewHolder.deleteBtn.setVisibility(View.VISIBLE);
+//        }else{
+//            viewHolder.deleteBtn.setVisibility(View.GONE);
+//        }
+//        viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(mListener != null){
+//                    mListener.onDeleteBbs(position,noteId);
+//                }
+//            }
+//        });
 
         if(!TextUtils.isEmpty(content)){
             viewHolder.contentTv.setText(content);
@@ -99,26 +99,27 @@ public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
                     @Override
                     public void onItemClick(int commentPosition) {
                         final PingLun commentItem = commentsDatas.get(commentPosition);
-                        if(MyContext.getInstance().getUserId().equals(commentItem.getpUserId())){//复制或者删除自己的评论
-                            CommentDialog dialog = new CommentDialog(noteId,mContext, commentItem, position);
-                            dialog.setCommitClick(new CommentDialog.OnDeleteCommitClick() {
-                                @Override
-                                public void deleteCommit(int postion, String noteId, String pinglunId) {
-                                    mListener.delteComment(noteId,commentItem.getPingLunId());
-                                }
-                            });
-                            dialog.show();
-                        }else{//回复别人的评论
-                            CommentConfig config = new CommentConfig();
-                            config.itemPosition = position;
-                            config.commentPosition = commentPosition;
-                            config.commentType = CommentConfig.Type.REPLY;
-                            config.towho = commentItem.getTowho();
-                            config.towhoName = commentItem.getToWhoName();
-                            if(mListener != null){
-                                mListener.onPublishComment(config);
-                            }
-                        }
+                        //将删除评论以及回复他人评论功能隐藏
+//                        if(MyContext.getInstance().getUserId().equals(commentItem.getpUserId())){//复制或者删除自己的评论
+//                            CommentDialog dialog = new CommentDialog(noteId,mContext, commentItem, position);
+//                            dialog.setCommitClick(new CommentDialog.OnDeleteCommitClick() {
+//                                @Override
+//                                public void deleteCommit(int postion, String noteId, String pinglunId) {
+//                                    mListener.delteComment(noteId,commentItem.getPingLunId());
+//                                }
+//                            });
+//                            dialog.show();
+//                        }else{//回复别人的评论
+//                            CommentConfig config = new CommentConfig();
+//                            config.itemPosition = position;
+//                            config.commentPosition = commentPosition;
+//                            config.commentType = CommentConfig.Type.REPLY;
+//                            config.towho = commentItem.getTowho();
+//                            config.towhoName = commentItem.getToWhoName();
+//                            if(mListener != null){
+//                                mListener.onPublishComment(config);
+//                            }
+//                        }
                     }
                 });
 
@@ -202,8 +203,6 @@ public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
     public interface FriendZoneListener{
         void onAddLike(int postion);
         void onDeleteLike(int position);
-        void delteComment(String noteId,String commentId);
         void onPublishComment(CommentConfig commentConfig);
-        void onDeleteBbs(int position,String noteId);
     }
 }

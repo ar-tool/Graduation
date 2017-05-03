@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.activity.ChangePasswordActivity;
@@ -30,6 +31,8 @@ public class MyFragment extends BaseFragment {
     private View mRootView;
     @Bind(R.id.my_rl_exit)
     RelativeLayout mExit;
+    @Bind(R.id.nicke_name_tv)
+    TextView mNickName;
     public MyFragment() {
         // Required empty public constructor
     }
@@ -62,7 +65,7 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        mNickName.setText(MyContext.getInstance().getUserInfo().getNickName());
     }
     @OnClick(R.id.my_modified_info)
     public void gotoModifiedInfo(){

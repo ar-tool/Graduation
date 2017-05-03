@@ -68,12 +68,12 @@
             android:id="@+id/modify_phone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="121313213123"/>
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_marginRight="@dimen/dimen_40dp"
-        android:layout_marginLeft="@dimen/dimen_60dp"
+        android:layout_marginLeft="@dimen/dimen_70dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40dp"
         android:gravity="center_vertical">
@@ -81,28 +81,24 @@
             android:text="@string/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
-        <EditText
+        <com.oujian.graduation.view.ClearEditText
+            android:background="@drawable/shape_comment_border"
             android:id="@+id/modified_info_nick_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="小样"/>
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:padding="@dimen/dimen_2dp"
+            />
     </LinearLayout>
-    
-    <LinearLayout
-        android:layout_marginTop="@dimen/dimen_30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+
+
+
         <Button
-            android:id="@+id/modify_cancel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"/>
-        <Button
+            android:layout_marginTop="@dimen/dimen_30dp"
             android:id="@+id/modify_sure_btn"
-            android:layout_marginLeft="@dimen/dimen_30dp"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/modify"/>
-    </LinearLayout>
 </LinearLayout>

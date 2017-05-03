@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-import com.oujian.graduation.net.entity.FriendEntity;
 import com.oujian.graduation.net.base.BaseApiService;
 import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
@@ -52,6 +51,8 @@ public class RetrofitClient {
     public static final String CHANGE_PWD_TYPE = "3";
     public static final String PUBLISH_NOTE_TYPE = "7";
     public static final String NOTE_LIST_TYPE = "8";
+    public static final String COMMENT_TYPE = "9";
+    public static final String ADD_LIKE_TYPE = "10";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
@@ -207,9 +208,9 @@ public class RetrofitClient {
      * @param req
      * @param subscriber
      */
-    public void changeInfo(String req, BaseSubscriber<BaseResponse<LoginEntity>> subscriber) {
+    public void changeInfo(String req, BaseSubscriber<BaseResult> subscriber) {
         apiService.changeInfo(CHANGE_PWD_TYPE,req)
-                .compose(this.<BaseResponse<LoginEntity>>applySchedulers())
+                .compose(this.<BaseResult>applySchedulers())
                 .subscribe(subscriber);
     }
     /**发布帖子
@@ -230,6 +231,27 @@ public class RetrofitClient {
     public void getNoteList(String req, BaseSubscriber<BaseResponse<List<NoteEntity>>> subscriber) {
         apiService.getNoteList(NOTE_LIST_TYPE,req)
                 .compose(this.<BaseResponse<List<NoteEntity>>>applySchedulers())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 点赞
+     * @param req
+     * @param subscriber
+     */
+    public void addLike(String req, BaseSubscriber<BaseResult> subscriber) {
+        apiService.addLike(ADD_LIKE_TYPE,req)
+                .compose(this.<BaseResult>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**
+     * 评论
+     * @param req
+     * @param subscriber
+     */
+    public void comment(String req, BaseSubscriber<BaseResult> subscriber) {
+        apiService.comment(COMMENT_TYPE,req)
+                .compose(this.<BaseResult>applySchedulers())
                 .subscribe(subscriber);
     }
     public void chat(String key,String info ,BaseSubscriber<ChatEntity> subscriber){

@@ -71,7 +71,7 @@ public class CommentDialog extends Dialog implements
 		if (mCommentItem != null
 				&& MyContext.getInstance().getUserId().equals(
 
-						mCommentItem.getpUserId())) {
+						mCommentItem.getCreateUser())) {
 			deleteTv.setVisibility(View.VISIBLE);
 		} else {
 			deleteTv.setVisibility(View.GONE);
@@ -86,14 +86,14 @@ public class CommentDialog extends Dialog implements
 		case R.id.copyTv:
 			if (mCommentItem != null) {
 				ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboard.setText(mCommentItem.getValue());
+				clipboard.setText(mCommentItem.getComment());
 			}
 			dismiss();
 			break;
 		//删除
 		case R.id.deleteTv:
 			if (commitClick!= null && mCommentItem != null) {
-				commitClick.deleteCommit(mPosition,mNoteId,mCommentItem.getPingLunId());
+				commitClick.deleteCommit(mPosition,mNoteId,mCommentItem.getId());
 			}
 			dismiss();
 			break;

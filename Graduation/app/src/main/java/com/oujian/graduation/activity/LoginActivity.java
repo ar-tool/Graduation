@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -120,7 +121,10 @@ public class LoginActivity extends BaseActivity {
                     userInfo.setAccount(response.getRetBody().getAccount());
                     userInfo.setPassword(response.getRetBody().getPassword());
                     userInfo.setUserId(response.getRetBody().getId());
+                    //userInfo.setNickName(response.getRetBody().getAccount());
                     LoginActivity.this.finish();
+                }else {
+                    ToastUtils.showToast(LoginActivity.this,response.getRetMsg());
                 }
             }
         });
