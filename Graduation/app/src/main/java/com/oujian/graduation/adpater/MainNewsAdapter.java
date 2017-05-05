@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.net.entity.NewsEntity;
+import com.oujian.graduation.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,6 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
     private Context mContext;
     private List<NewsEntity> mDatas = new ArrayList<NewsEntity>();
 
-    public static final int TYPE_FOOTER = 1;
-    public static final int TYPE_DATA = TYPE_FOOTER + 1;
 
     private OnItemClick mOnItemClick;
     public void setItemCick(OnItemClick cick){
@@ -45,20 +44,19 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        if(holder.type == TYPE_DATA){
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+
             holder.textView.setText(mDatas.get(position).getTitle());
-        }else if(holder.type == TYPE_FOOTER){
-            holder.textView.setText(mContext.getString(R.string.more));
-        }
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mOnItemClick != null) {
-                    mOnItemClick.onClick(v);
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClick != null) {
+                        mOnItemClick.onClick(mDatas.get(position));
+                    }
                 }
-            }
-        });
+            });
+
+
     }
     public void setDataList(List<NewsEntity> list) {
         this.mDatas.clear();
@@ -66,21 +64,11 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-       int type = TYPE_DATA;
-        //从0开始
-        if(position == getItemCount()-1){
-            type =TYPE_FOOTER;
-        }else {
-            type = TYPE_DATA;
-        }
-        return type;
-    }
+
 
     @Override
     public int getItemCount() {
-        return mDatas.size()+1;
+        return mDatas.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -96,6 +84,6 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
     }
 
     public interface OnItemClick{
-        public void onClick(View view);
+        public void onClick(NewsEntity entity);
     }
 }

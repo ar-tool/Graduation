@@ -1,6 +1,7 @@
 package com.oujian.graduation.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.oujian.graduation.R;
+import com.oujian.graduation.activity.NewsActivity;
+import com.oujian.graduation.adpater.HomeAdapter;
 import com.oujian.graduation.adpater.MainNewsAdapter;
 import com.oujian.graduation.adpater.RollAdapter;
 import com.oujian.graduation.base.BaseFragment;
@@ -79,12 +82,17 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-//        mAdapter.setItemCick(new MainNewsAdapter.OnItemClick() {
-//            @Override
-//            public void onClick(View view) {
-//                ToastUtils.showToast(getActivity(),"点点");
-//            }
-//        });
+        mAdapter.setItemCick(new MainNewsAdapter.OnItemClick() {
+            @Override
+            public void onClick(NewsEntity newsEntity) {
+                if (newsEntity == null) {
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), NewsActivity.class);
+                intent.putExtra(NewsActivity.KEY_NEWS, newsEntity);
+                startActivity(intent);
+            }
+        });
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
         mRecylerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override

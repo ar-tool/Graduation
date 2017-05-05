@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -61,9 +63,9 @@ public class FriendFragment extends BaseFragment {
     private static final String TAG = "FriendFragment";
     private View mRootView ;
     @Bind(R.id.friendzone_add)
-    RelativeLayout mAdd;
-    @Bind(R.id.rl_top)
-    RelativeLayout mTop;
+    ImageView mAdd;
+    @Bind(R.id.friend_toolbar)
+    Toolbar mTop;
     @Bind(R.id.friend_recyclerView)
     LRecyclerView mLRecyclerView;
     @Bind(R.id.body_layout)
@@ -298,8 +300,9 @@ public class FriendFragment extends BaseFragment {
         //  获得数据
         mLRecyclerView.refreshComplete();
         NoteListReq req = new NoteListReq();
-        req.setUserId(MyContext.getInstance().getUserId());
+        req.setUserId("");
         String json = new Gson().toJson(req);
+        //获取所有帖子不用传userId
         RetrofitClient.getInstance(getActivity()).createBaseApi().getNoteList(json, new BaseSubscriber<BaseResponse<List<NoteEntity>>>(getActivity()) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {

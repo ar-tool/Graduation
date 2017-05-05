@@ -9,20 +9,19 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/chat_toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:clipToPadding="false">
+            popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
-                android:id="@+id/chat_top_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_60dp"
+                android:paddingTop="@dimen/dimen_29dp"
                 android:layout_gravity="center"
                 android:text="@string/my"
-                style="@style/text_ffffff_20dp"
+                style="@style/text_ffffff_16dp"
                 />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

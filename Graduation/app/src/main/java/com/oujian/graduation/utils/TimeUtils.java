@@ -37,11 +37,18 @@ public class TimeUtils {
             e.printStackTrace();
         }
 
-        return format(date);
+        return format(date.getTime());
     }
-
-    public static String format(Date date) {
-        long delta = new Date().getTime() - date.getTime();
+    /**
+     * @param time 毫秒值
+     * @return 转换方法
+     */
+    public static String getLongTime(String time) {
+        long time1 = Long.parseLong(time);
+        return format(time1);
+    }
+    public static String format(long time) {
+        long delta = new Date().getTime() - time;
         if (delta < 1L * ONE_MINUTE) {
             long seconds = toSeconds(delta);
             return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;

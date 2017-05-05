@@ -53,10 +53,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.textView.setText(mDatas.get(position).getTitle());
-        Glide.with((Activity) mContext)
-                .load(IMG_URL + mDatas.get(position).getImgPath())
-                .placeholder(R.color.color_fafafa)
-                .into(holder.bg);
         holder.time.setText(mDatas.get(position).getPublishTime());
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +79,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         TextView textView;
         TextView time;
         CardView view;
-        ImageView bg;
         public int type = 0;
         public MyViewHolder(View itemView, int type) {
             super(itemView);
@@ -91,7 +86,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             view = (CardView) itemView.findViewById(R.id.rl_item_home);
             textView = (TextView) itemView.findViewById(R.id.item_home_tv);
             time =(TextView) itemView.findViewById(R.id.publish_time);
-            bg = (ImageView) itemView.findViewById(R.id.item_bg);
         }
     }
 

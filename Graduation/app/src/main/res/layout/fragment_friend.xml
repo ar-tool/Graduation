@@ -5,84 +5,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_e3e3e3"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/rl_top"
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/friend_appBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:background="@color/colorPrimary"
-       >
-        <TextView
-            android:gravity="center_vertical"
-            android:id="@+id/tv_friend_zone"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="社交"
-            android:textColor="@color/color_fafafa"
-            android:textSize="18sp"
-            />
-        <RelativeLayout
-            android:id="@+id/friendzone_add"
-            android:layout_alignParentRight="true"
-            android:layout_width="80dp"
-            android:layout_height="match_parent">
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/friend_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            popupTheme="@style/AppTheme.PopupOverlay">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_60dp"
+                android:paddingTop="@dimen/dimen_29dp"
+                android:layout_gravity="center"
+                android:text="@string/publicity"
+                style="@style/text_ffffff_16dp"
+                />
             <ImageView
+                android:id="@+id/friendzone_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:paddingTop="@dimen/dimen_29dp"
+                android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="10dp"
                 android:src="@android:drawable/ic_menu_add"/>
-        </RelativeLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/body_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/editTextBodyLl"
-            android:gravity="center_vertical"
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:id="@+id/body_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
-            android:background="@color/color_fafafa"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/circleEt"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_comment_border"
-                android:focusableInTouchMode="true"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/editTextBodyLl"
                 android:gravity="center_vertical"
-                android:hint="写出你的想法"
-                android:inputType="textMultiLine"
-                android:singleLine="true"
-                android:paddingLeft="10dp"
-                android:textColor="#333333"
-                android:textColorHint="#cccccc"
-                android:textSize="14sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40dp"
+                android:background="@color/color_fafafa"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/circleEt"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_comment_border"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:hint="写出你的想法"
+                    android:inputType="textMultiLine"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#cccccc"
+                    android:textSize="14sp"/>
 
-            <com.oujian.graduation.view.SimpleButton
-                android:id="@+id/sendIv"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                app:sb_border_color="@color/colorAccent"
-                app:sb_bg_color="@color/color_3ad19a"
-                app:sb_text_color="@android:color/white"
-                app:sb_text="发送"/>
-        </LinearLayout>
-        <com.github.jdsjlzx.recyclerview.LRecyclerView
-            android:id="@+id/friend_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/editTextBodyLl">
-        </com.github.jdsjlzx.recyclerview.LRecyclerView>
+                <com.oujian.graduation.view.SimpleButton
+                    android:id="@+id/sendIv"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    app:sb_border_color="@color/colorAccent"
+                    app:sb_bg_color="@color/color_3ad19a"
+                    app:sb_text_color="@android:color/white"
+                    app:sb_text="发送"/>
+            </LinearLayout>
+            <com.github.jdsjlzx.recyclerview.LRecyclerView
+                android:id="@+id/friend_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/editTextBodyLl">
+            </com.github.jdsjlzx.recyclerview.LRecyclerView>
+        </RelativeLayout>
 
-    </RelativeLayout>
 </LinearLayout>

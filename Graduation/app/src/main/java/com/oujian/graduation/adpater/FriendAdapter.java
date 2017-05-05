@@ -52,7 +52,7 @@ public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
         String name = entity.getAccount();//昵称
         //String headImg = entity.getUserImg();//头像
         final String content = entity.getContent();//内容
-        String createTime = TimeUtils.getTime(String.valueOf(entity.getCreateTime()));
+        String createTime = TimeUtils.getLongTime(String.valueOf(entity.getCreateTime()));
         final List<Click> favortDatas = entity.getUpvoteList();
         final List<PingLun> commentsDatas = entity.getCommentList();
         //是否有点赞和评论
