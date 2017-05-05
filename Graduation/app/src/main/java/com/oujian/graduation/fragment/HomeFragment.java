@@ -1,23 +1,32 @@
 package com.oujian.graduation.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.oujian.graduation.R;
+import com.oujian.graduation.activity.LoginActivity;
+import com.oujian.graduation.activity.NewsActivity;
 import com.oujian.graduation.adpater.HomeAdapter;
 import com.oujian.graduation.base.BaseFragment;
 import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
 import com.oujian.graduation.net.entity.NewsEntity;
+import com.oujian.graduation.net.req.GetTitleReq;
 import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.utils.ToastUtils;
 
@@ -36,8 +45,13 @@ public class HomeFragment extends BaseFragment {
     RecyclerView mRecylerView;
     @Bind(R.id.home_swipe_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private HomeAdapter mAdapter;
+    @Bind(R.id.search_img)
+    ImageView mSearchImg;
+    @Bind(R.id.home_et)
+    EditText mHomeEt;
 
+    private HomeAdapter mAdapter;
+    private String mTitleInput;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -57,6 +71,17 @@ public class HomeFragment extends BaseFragment {
     protected void initViews(View rootView) {
 
         mAdapter = new HomeAdapter(getActivity());
+        mAdapter.setItemCick(new HomeAdapter.OnItemClick() {
+            @Override
+            public void onClick(NewsEntity newsEntity) {
+                if (newsEntity == null) {
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), NewsActivity.class);
+                intent.putExtra(NewsActivity.KEY_NEWS, newsEntity);
+                startActivity(intent);
+            }
+        });
         LinearLayoutManager layoutManager =new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecylerView.setLayoutManager(layoutManager);
@@ -82,14 +107,28 @@ public class HomeFragment extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+                loadData("");
+            }
+        });
+        mSearchImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTitleInput = mHomeEt.getText().toString();
+                if (TextUtils.isEmpty(mTitleInput)) {
+                    ToastUtils.showToast(getActivity(), mHomeEt.getHint().toString());
+                    return;
+                }
+                loadData(mTitleInput);
             }
         });
     }
 
-    private void loadData(){
+    private void loadData(String title){
+        GetTitleReq req = new GetTitleReq();
+        req.setTitle(title);
+        String json = new Gson().toJson(req);
         //请求数据
-        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
+        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(json,new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {
                 ToastUtils.showToast(getActivity(),"获取数据失败");
@@ -116,6 +155,6 @@ public class HomeFragment extends BaseFragment {
                 mSwipeRefreshLayout.setRefreshing(true);
             }
         });
-        loadData();
+        loadData("");
     }
 }

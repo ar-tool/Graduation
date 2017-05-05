@@ -108,7 +108,7 @@ public class MainFragment extends BaseFragment {
     }
     private void loadData(){
         //请求数据
-        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
+        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(null,new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
             @Override
             public void onError(ExceptionHandle.ResponeThrowable e) {
                 ToastUtils.showToast(getActivity(),"获取数据失败");

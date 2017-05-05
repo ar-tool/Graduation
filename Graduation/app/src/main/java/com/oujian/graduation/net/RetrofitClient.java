@@ -249,10 +249,11 @@ public class RetrofitClient {
     }
     /**
      * 获取新闻列表
+     *  * @param req
      * @param subscriber
      */
-    public void getNews( BaseSubscriber<BaseResponse<List<NewsEntity>>> subscriber) {
-        apiService.getNews(GET_NEWS_TYPE)
+    public void getNews(String req, BaseSubscriber<BaseResponse<List<NewsEntity>>> subscriber) {
+        apiService.getNews(GET_NEWS_TYPE,req)
                 .compose(this.<BaseResponse<List<NewsEntity>>>applySchedulers())
                 .subscribe(subscriber);
     }

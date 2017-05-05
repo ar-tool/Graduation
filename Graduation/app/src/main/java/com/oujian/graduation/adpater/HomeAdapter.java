@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.oujian.graduation.R;
 import com.oujian.graduation.common.Constant;
 import com.oujian.graduation.net.entity.NewsEntity;
@@ -18,6 +19,8 @@ import com.oujian.graduation.utils.GildeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.oujian.graduation.common.Constant.IMG_URL;
 
 /**
  * 主界面消息适配器
@@ -48,15 +51,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.textView.setText(mDatas.get(position).getTitle());
-        GildeUtils.imageLoader((Activity) mContext,holder.bg, Constant.IMG_URL+mDatas.get(position).getImgPath());
+        Glide.with((Activity) mContext)
+                .load(IMG_URL + mDatas.get(position).getImgPath())
+                .placeholder(R.color.color_fafafa)
+                .into(holder.bg);
         holder.time.setText(mDatas.get(position).getPublishTime());
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mOnItemClick != null) {
-                    mOnItemClick.onClick(v);
+                    mOnItemClick.onClick(mDatas.get(position));
                 }
             }
         });
@@ -90,6 +96,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
     public interface OnItemClick{
-        public void onClick(View view);
+        public void onClick(NewsEntity entity);
     }
 }

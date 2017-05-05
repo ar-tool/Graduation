@@ -42,7 +42,7 @@ public interface BaseApiService {
     @POST("api")
     Observable<BaseResponse<List<NoteEntity>>> getNoteList(@Query("type") String type, @Query("json") String req);
     @POST("api")
-    Observable<BaseResponse<List<NewsEntity>>> getNews(@Query("type") String type);
+    Observable<BaseResponse<List<NewsEntity>>> getNews(@Query("type") String type, @Query("json") String req);
     @POST("api")
     Observable<BaseResult> addLike(@Query("type") String type, @Query("json") String req);
     @POST("api")

@@ -1,10 +1,12 @@
 package com.oujian.graduation.net.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by yi on 2017/5/5.
  */
 
-public class NewsEntity {
+public class NewsEntity implements Serializable {
 
     private long createTime;
     private int delFlag;
@@ -14,6 +16,15 @@ public class NewsEntity {
     private String title;
     private long updateTime;
     private String updateUser;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public long getCreateTime() {
         return createTime;

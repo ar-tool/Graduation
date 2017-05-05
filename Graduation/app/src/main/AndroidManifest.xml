@@ -53,6 +53,9 @@
         <activity
             android:name=".activity.ChangePasswordActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.NewsActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 为视频和剪裁activity -->
         <activity
