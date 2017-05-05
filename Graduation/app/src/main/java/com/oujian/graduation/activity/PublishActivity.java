@@ -1,7 +1,5 @@
 package com.oujian.graduation.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,19 +14,15 @@ import com.oujian.graduation.common.MyContext;
 import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
-import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.req.PublishReq;
-import com.oujian.graduation.net.req.RegistReq;
-import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
-import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * 发布消息
+ * 发布帖子
  */
 public class PublishActivity extends BaseActivity {
 

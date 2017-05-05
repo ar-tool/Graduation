@@ -4,27 +4,27 @@ package com.oujian.graduation.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.oujian.graduation.R;
-import com.oujian.graduation.activity.RobotChatActivity;
 import com.oujian.graduation.adpater.MainNewsAdapter;
-import com.oujian.graduation.adpater.MessageAdapter;
 import com.oujian.graduation.adpater.RollAdapter;
 import com.oujian.graduation.base.BaseFragment;
+import com.oujian.graduation.net.RetrofitClient;
+import com.oujian.graduation.net.base.BaseSubscriber;
+import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.entity.NewsEntity;
+import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.utils.ToastUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,6 +40,9 @@ public class MainFragment extends BaseFragment {
     RecyclerView mRecylerView;
     @Bind(R.id.main_toolBar)
     Toolbar mToolbar;
+    @Bind(R.id.swipe_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private MainNewsAdapter mAdapter;
     public MainFragment() {
         // Required empty public constructor
@@ -76,14 +79,53 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-        mAdapter.setItemCick(new MainNewsAdapter.OnItemClick() {
+//        mAdapter.setItemCick(new MainNewsAdapter.OnItemClick() {
+//            @Override
+//            public void onClick(View view) {
+//                ToastUtils.showToast(getActivity(),"点点");
+//            }
+//        });
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        mRecylerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
-            public void onClick(View view) {
-                ToastUtils.showToast(getActivity(),"点点");
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+
+            }
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+              loadData();
             }
         });
     }
+    private void loadData(){
+        //请求数据
+        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                ToastUtils.showToast(getActivity(),"获取数据失败");
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
 
+            @Override
+            public void onNext(BaseResponse<List<NewsEntity>> listBaseResponse) {
+                if(listBaseResponse.getRetCode() == 0){
+                    mAdapter.setDataList(listBaseResponse.getRetBody());
+                }else {
+                    ToastUtils.showToast(getActivity(),listBaseResponse.getRetMsg());
+                }
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -98,11 +140,13 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        List<String> strings = new ArrayList<>();
-        strings.add("显示学校最新发布的新闻公告");
-        strings.add("显示学校最新发布的新闻公告");
-        strings.add("显示学校最新发布的新闻公告");
-        strings.add("显示学校最新发布的新闻公告");
-        mAdapter.setDataList(strings);
+        //进入页面自动刷新
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        loadData();
     }
 }

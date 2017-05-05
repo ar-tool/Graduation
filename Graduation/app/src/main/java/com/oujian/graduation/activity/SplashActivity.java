@@ -1,21 +1,20 @@
 package com.oujian.graduation.activity;
+
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
-import android.widget.TextView;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
 import com.oujian.graduation.utils.RxHelper;
 import com.oujian.graduation.view.SimpleButton;
 
-import java.lang.ref.WeakReference;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import rx.Subscriber;
 
+/**
+ * Splash页面
+ */
 public class SplashActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
     //倒计时

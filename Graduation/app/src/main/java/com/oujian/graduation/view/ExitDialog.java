@@ -12,6 +12,7 @@ import com.oujian.graduation.R;
 
 
 /**
+ * 退出登录的对话框
  * Created by yi on 2016/11/28.
  */
 

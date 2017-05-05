@@ -3,13 +3,9 @@ package com.oujian.graduation.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
-import com.google.gson.Gson;
 import com.oujian.graduation.R;
 import com.oujian.graduation.adpater.MessageAdapter;
 import com.oujian.graduation.base.BaseActivity;
@@ -18,9 +14,7 @@ import com.oujian.graduation.entity.Message;
 import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
-import com.oujian.graduation.net.entity.BaseChatRes;
 import com.oujian.graduation.net.entity.ChatEntity;
-import com.oujian.graduation.net.req.ChatReq;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.SimpleButton;
 
@@ -29,8 +23,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import okhttp3.RequestBody;
 
+/**
+ * 机器人聊天界面
+ */
 public class RobotChatActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
 

@@ -2,12 +2,9 @@ package com.oujian.graduation.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,11 +14,8 @@ import com.oujian.graduation.common.MyContext;
 import com.oujian.graduation.net.RetrofitClient;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.base.ExceptionHandle;
-import com.oujian.graduation.net.entity.LoginEntity;
 import com.oujian.graduation.net.req.ModifyInfoReq;
-import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
-import com.oujian.graduation.utils.GildeUtils;
 import com.oujian.graduation.utils.ToastUtils;
 import com.oujian.graduation.view.CircleImageView;
 import com.oujian.graduation.view.ClearEditText;
@@ -29,12 +23,11 @@ import com.oujian.graduation.view.ClearEditText;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.finalteam.rxgalleryfinal.RxGalleryFinalApi;
-import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
-import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
-import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.MediaScanner;
-import cn.finalteam.rxgalleryfinal.utils.ModelUtils;
 
+/**
+ * 基本信息修改界面
+ */
 public class ModifiedInfoActivity extends BaseActivity {
 
     @Bind(R.id.modified_info_toolBar)

@@ -19,6 +19,15 @@ public class PingLun {
     private String createTime;
     //评论内容
     private String comment;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getId() {
         return id;

@@ -5,15 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.oujian.graduation.R;
-import com.oujian.graduation.entity.Message;
+import com.oujian.graduation.net.entity.NewsEntity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,7 +22,7 @@ import java.util.List;
 public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<String> mDatas = new ArrayList<String>();
+    private List<NewsEntity> mDatas = new ArrayList<NewsEntity>();
 
     public static final int TYPE_FOOTER = 1;
     public static final int TYPE_DATA = TYPE_FOOTER + 1;
@@ -49,7 +47,7 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         if(holder.type == TYPE_DATA){
-            holder.textView.setText(mDatas.get(position));
+            holder.textView.setText(mDatas.get(position).getTitle());
         }else if(holder.type == TYPE_FOOTER){
             holder.textView.setText(mContext.getString(R.string.more));
         }
@@ -62,7 +60,7 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.MyView
             }
         });
     }
-    public void setDataList(List<String> list) {
+    public void setDataList(List<NewsEntity> list) {
         this.mDatas.clear();
         this.mDatas.addAll(list);
         notifyDataSetChanged();

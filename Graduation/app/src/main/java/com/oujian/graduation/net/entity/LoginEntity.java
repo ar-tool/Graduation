@@ -15,6 +15,15 @@ public class LoginEntity {
      private String mobile;
      private String password;
      private String updateTime;
+     private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getAccount() {
         return account;

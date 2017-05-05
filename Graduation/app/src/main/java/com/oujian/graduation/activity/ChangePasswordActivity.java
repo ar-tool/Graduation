@@ -1,7 +1,5 @@
 package com.oujian.graduation.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -27,6 +25,9 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * 修改密码界面
+ */
 public class ChangePasswordActivity extends BaseActivity {
 
     @Bind(R.id.change_password_toolBar)

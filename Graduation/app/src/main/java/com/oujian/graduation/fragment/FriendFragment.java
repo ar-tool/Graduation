@@ -8,18 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -34,7 +30,6 @@ import com.google.gson.Gson;
 import com.oujian.graduation.R;
 import com.oujian.graduation.activity.PublishActivity;
 import com.oujian.graduation.adpater.FriendAdapter;
-import com.oujian.graduation.adpater.HomePagerAdapter;
 import com.oujian.graduation.base.BaseFragment;
 import com.oujian.graduation.common.MyContext;
 import com.oujian.graduation.entity.Click;
@@ -154,21 +149,57 @@ public class FriendFragment extends BaseFragment {
 
                     @Override
                     public void onNext(BaseResult baseResult) {
-                        Click click = new Click();
-                        click.setPostId(entity.getId());
-                        click.setAccount(MyContext.getInstance().getUserInfo().getAccount());
-                        click.setCreateTime("");
-                        click.setUpvoteUser(MyContext.getInstance().getUserId());
-                        click.setId("");
-                        entity.getUpvoteList().add(click);
-                        mAdapter.notifyItemChanged(postion);
+                        if(baseResult.getRetCode() ==0){
+                            Click click = new Click();
+                            click.setPostId(entity.getId());
+                            //有昵称就显示昵称没有就显示账号
+                            if(MyContext.getInstance().getUserInfo().getNickName() != null){
+                                click.setAccount(MyContext.getInstance().getUserInfo().getNickName());
+                            }else {
+                                click.setAccount(MyContext.getInstance().getUserInfo().getAccount());
+                            }
+                            click.setCreateTime("");
+                            click.setUpvoteUser(MyContext.getInstance().getUserId());
+                            click.setId("");
+                            entity.getUpvoteList().add(click);
+                            mAdapter.notifyItemChanged(postion);
+                        }else {
+                            ToastUtils.showToast(getActivity(),baseResult.getRetMsg());
+                        }
                     }
                 });
             }
 
             @Override
-            public void onDeleteLike(int position) {
+            public void onDeleteLike(final int position) {
+                final NoteEntity entity = mAdapter.getDataList().get(position);
                 //取消点赞
+                final AddLikeReq req = new AddLikeReq();
+                req.setUserId(MyContext.getInstance().getUserId());
+                req.setPostId(entity.getId());
+                //发送请求
+                String json = new Gson().toJson(req);
+                RetrofitClient.getInstance(getActivity()).createBaseApi().cancelLike(json, new BaseSubscriber<BaseResult>(getActivity()) {
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable e) {
+                        ToastUtils.showToast(getActivity(),"取消点赞失败");
+                    }
+
+                    @Override
+                    public void onNext(BaseResult baseResult) {
+                      if(baseResult.getRetCode() == 0){
+                          for(int i=0; i<entity.getUpvoteList().size(); i++){
+                              if(MyContext.getInstance().getUserId().equals(entity.getUpvoteList().get(i).getUpvoteUser())){
+                                  entity.getUpvoteList().remove(i);
+                                  mAdapter.notifyItemChanged(position);
+                                  return;
+                              }
+                          }
+                      }else {
+                          ToastUtils.showToast(getActivity(),baseResult.getRetMsg());
+                      }
+                    }
+                });
             }
 
             @Override

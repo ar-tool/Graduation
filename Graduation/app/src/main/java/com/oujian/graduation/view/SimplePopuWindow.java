@@ -22,7 +22,8 @@ import static com.oujian.graduation.common.Constant.QQ_COMMUNICATE;
 import static com.oujian.graduation.common.Constant.QQ_SERVICE;
 
 /**
- * Created by DIY on 2017/4/22.
+ * 主界面点击服务弹出框
+ * Created by yi on 2017/4/22.
  */
 
 public class SimplePopuWindow extends PopupWindow implements View.OnClickListener{

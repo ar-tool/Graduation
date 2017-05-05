@@ -6,13 +6,10 @@ import android.os.Message;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.oujian.graduation.R;
 import com.oujian.graduation.base.BaseActivity;
@@ -33,6 +30,9 @@ import java.util.List;
 
 import butterknife.Bind;
 
+/**
+ * 主界面
+ */
 public class MainActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
     @Bind(R.id.tabhost_main)

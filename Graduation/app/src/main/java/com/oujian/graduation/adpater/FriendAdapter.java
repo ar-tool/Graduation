@@ -23,7 +23,8 @@ import com.oujian.graduation.view.SnsPopupWindow;
 import java.util.List;
 
 /**
- * Created by DIY on 2017/4/28.
+ * 朋友圈适配器
+ * Created by yi on 2017/4/28.
  */
 
 public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
@@ -51,7 +52,7 @@ public class FriendAdapter extends ListBaseAdapter<NoteEntity> {
         String name = entity.getAccount();//昵称
         //String headImg = entity.getUserImg();//头像
         final String content = entity.getContent();//内容
-        String createTime = TimeUtils.getTime(String.valueOf(entity.getCreateTime()).substring(0,9));
+        String createTime = TimeUtils.getTime(String.valueOf(entity.getCreateTime()));
         final List<Click> favortDatas = entity.getUpvoteList();
         final List<PingLun> commentsDatas = entity.getCommentList();
         //是否有点赞和评论

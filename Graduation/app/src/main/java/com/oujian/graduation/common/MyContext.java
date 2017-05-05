@@ -5,7 +5,7 @@ import android.content.Context;
 import com.oujian.graduation.manager.UserInfo;
 
 /**
- * Created by yi on 2017-03-20.
+ * Created by yi on 2017-04-20.
  */
 
 public class MyContext {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +27,9 @@ import com.oujian.graduation.utils.ToastUtils;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * 登录界面
+ */
 public class LoginActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
     /**
@@ -121,7 +123,7 @@ public class LoginActivity extends BaseActivity {
                     userInfo.setAccount(response.getRetBody().getAccount());
                     userInfo.setPassword(response.getRetBody().getPassword());
                     userInfo.setUserId(response.getRetBody().getId());
-                    //userInfo.setNickName(response.getRetBody().getAccount());
+                    userInfo.setNickName(response.getRetBody().getNickname());
                     LoginActivity.this.finish();
                 }else {
                     ToastUtils.showToast(LoginActivity.this,response.getRetMsg());

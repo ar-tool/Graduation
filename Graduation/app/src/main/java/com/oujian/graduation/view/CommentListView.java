@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 自定义评论列表
  * Created by yiwei on 16/7/9.
  */
 public class CommentListView extends LinearLayout {
@@ -117,16 +118,19 @@ public class CommentListView extends LinearLayout {
         final CircleMovementMethod circleMovementMethod = new CircleMovementMethod(itemSelectorColor, itemSelectorColor);
 
         final PingLun bean = mDatas.get(position);
-        String name = bean.getAccount();
+        String account = bean.getAccount();
+        String nickname = bean.getNickname();
         String id = bean.getCreateUser();
         String toReplyName = "";
 
         //toReplyName = bean.getToWhoName();
-
-
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(setClickableSpan(name, bean.getCreateUser()));
-
+        if(!TextUtils.isEmpty(nickname)){
+            //这样对每个append的字符串都可以进行单独的点击操作
+            builder.append(setClickableSpan(nickname, bean.getCreateUser()));
+        }else {
+            builder.append(setClickableSpan(account, bean.getCreateUser()));
+        }
         //不添加对评论进行回复
 //        if (!TextUtils.isEmpty(toReplyName)&& !toReplyName.equals("Null")) {
 //

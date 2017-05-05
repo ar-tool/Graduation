@@ -10,6 +10,7 @@ import com.oujian.graduation.net.base.BaseInterceptor;
 import com.oujian.graduation.net.base.BaseSubscriber;
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.entity.NewsEntity;
 import com.oujian.graduation.net.entity.NoteEntity;
 import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
@@ -49,10 +50,12 @@ public class RetrofitClient {
     public static final String LOGIN_TYPE = "1";
     public static final String REGIST_TYPE = "2";
     public static final String CHANGE_PWD_TYPE = "3";
+    public static final String GET_NEWS_TYPE = "5";
     public static final String PUBLISH_NOTE_TYPE = "7";
     public static final String NOTE_LIST_TYPE = "8";
     public static final String COMMENT_TYPE = "9";
     public static final String ADD_LIKE_TYPE = "10";
+    public static final String CANCEL_LIKE_TYPE = "11";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
@@ -241,6 +244,25 @@ public class RetrofitClient {
      */
     public void addLike(String req, BaseSubscriber<BaseResult> subscriber) {
         apiService.addLike(ADD_LIKE_TYPE,req)
+                .compose(this.<BaseResult>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**
+     * 获取新闻列表
+     * @param subscriber
+     */
+    public void getNews( BaseSubscriber<BaseResponse<List<NewsEntity>>> subscriber) {
+        apiService.getNews(GET_NEWS_TYPE)
+                .compose(this.<BaseResponse<List<NewsEntity>>>applySchedulers())
+                .subscribe(subscriber);
+    }
+    /**
+     * 取消点赞
+     * @param req
+     * @param subscriber
+     */
+    public void cancelLike(String req, BaseSubscriber<BaseResult> subscriber) {
+        apiService.cancelLike(CANCEL_LIKE_TYPE,req)
                 .compose(this.<BaseResult>applySchedulers())
                 .subscribe(subscriber);
     }

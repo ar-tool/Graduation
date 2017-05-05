@@ -15,6 +15,7 @@ import com.oujian.graduation.common.MyContext;
 
 
 /**
+ * 处理textview的点击
  * @author yi
  * @Description:
  * @date 16/9/2 16:54

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
-
 import com.oujian.graduation.R;
 import com.oujian.graduation.fragment.ImageDetailFragment;
 import com.oujian.graduation.view.HackyViewPager;

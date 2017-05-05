@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import com.oujian.graduation.activity.LoginActivity;
 import com.oujian.graduation.common.MyContext;
-import com.oujian.graduation.utils.PreferencesUtils;
 
 
 /**

@@ -16,7 +16,8 @@ import com.oujian.graduation.view.SnsPopupWindow;
 
 
 /**
- * Created by yiw on 2016/8/16.
+ * 社交的viewholder
+ * Created by yi on 2017/4/26.
  */
 public class FriendViewHolder extends RecyclerView.ViewHolder {
 

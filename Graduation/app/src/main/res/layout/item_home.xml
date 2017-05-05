@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_3a3a3a"></View>
-    <RelativeLayout
+
+    <android.support.v7.widget.CardView
         android:id="@+id/rl_item_home"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_40dp"
-        android:background="@drawable/selector_bg">
+        android:layout_height="@dimen/dimen_60dp"
+        app:cardCornerRadius="@dimen/dimen_4dp"
+        >
+        <ImageView
+            android:id="@+id/item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
         <TextView
             android:id="@+id/item_home_tv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_40dp"
             android:gravity="center"
-            android:text="@string/show_news"/>
-    </RelativeLayout>
-    <View
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_3a3a3a"></View>
+            />
+        <TextView
+            android:id="@+id/publish_time"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            />
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

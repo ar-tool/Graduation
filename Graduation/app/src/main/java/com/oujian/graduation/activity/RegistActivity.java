@@ -2,7 +2,6 @@ package com.oujian.graduation.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -21,7 +20,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * Created by DIY on 2017/4/22.
+ * 注册
+ * Created by yi on 2017/4/22.
  */
 
 public class RegistActivity extends BaseActivity {

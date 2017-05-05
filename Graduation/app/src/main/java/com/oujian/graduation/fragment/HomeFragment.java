@@ -2,22 +2,25 @@ package com.oujian.graduation.fragment;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.oujian.graduation.R;
-import com.oujian.graduation.adpater.HomePagerAdapter;
+import com.oujian.graduation.adpater.HomeAdapter;
 import com.oujian.graduation.base.BaseFragment;
+import com.oujian.graduation.net.RetrofitClient;
+import com.oujian.graduation.net.base.BaseSubscriber;
+import com.oujian.graduation.net.base.ExceptionHandle;
+import com.oujian.graduation.net.entity.NewsEntity;
+import com.oujian.graduation.net.res.BaseResponse;
+import com.oujian.graduation.utils.ToastUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,11 +32,11 @@ public class HomeFragment extends BaseFragment {
     private View mRootView ;
     @Bind(R.id.home_toolBar)
     Toolbar mToolbar;
-    @Bind(R.id.home_tabLayout)
-    TabLayout mTabLayout;
-    @Bind(R.id.home_viewPager)
-    ViewPager mViewPager;
-    private HomePagerAdapter mPagerAdapter;
+    @Bind(R.id.home_recyclerView)
+    RecyclerView mRecylerView;
+    @Bind(R.id.home_swipe_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private HomeAdapter mAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,41 +56,66 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initViews(View rootView) {
 
-        //使用适配器将ViewPager与Fragment绑定在一起
-        mPagerAdapter = new HomePagerAdapter(getChildFragmentManager());
-        mViewPager.setAdapter(mPagerAdapter);
-        //将TabLayout与ViewPager绑定在一起
-        mTabLayout.setupWithViewPager(mViewPager);
-        //设置分割线
-        LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
-        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        linearLayout.setDividerDrawable(ContextCompat.getDrawable(getActivity(),
-                R.drawable.divider_vertical));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.i("选中的tab",tab.getPosition()+"");
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        mAdapter = new HomeAdapter(getActivity());
+        LinearLayoutManager layoutManager =new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecylerView.setLayoutManager(layoutManager);
+        mRecylerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void initListeners() {
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        mRecylerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
 
+            }
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
     }
 
+    private void loadData(){
+        //请求数据
+        RetrofitClient.getInstance(getActivity()).createBaseApi().getNews(new BaseSubscriber<BaseResponse<List<NewsEntity>>>(getActivity()) {
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                ToastUtils.showToast(getActivity(),"获取数据失败");
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onNext(BaseResponse<List<NewsEntity>> listBaseResponse) {
+                if(listBaseResponse.getRetCode() == 0){
+                    mAdapter.setDataList(listBaseResponse.getRetBody());
+                }else {
+                    ToastUtils.showToast(getActivity(),listBaseResponse.getRetMsg());
+                }
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
     @Override
     protected void initData() {
-
+        //进入页面自动刷新
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        loadData();
     }
 }

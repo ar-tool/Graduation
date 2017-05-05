@@ -85,9 +85,13 @@ public class PraiseListView extends AppCompatTextView {
             for (int i=0; i<datas.size(); i++){
                 item = datas.get(i);
                 if(item != null){
-                    if(item.getAccount() != null){
+                    if(item.getNickname() != null){
+                        //有昵称用昵称没有就用账号
+                        builder.append(setClickableSpan(DecodeUtils.getString(item.getNickname()), i));
+                    }else {
                         builder.append(setClickableSpan(DecodeUtils.getString(item.getAccount()), i));
                     }
+                    //如果还有点赞人员，就要加分隔符号
                     if(i != datas.size()-1){
                         builder.append(", ");
                     }

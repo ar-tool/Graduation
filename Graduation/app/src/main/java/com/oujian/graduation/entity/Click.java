@@ -21,6 +21,15 @@ public class Click {
     private String id;
     //帖子id
     private String postId;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getAccount() {
         return account;

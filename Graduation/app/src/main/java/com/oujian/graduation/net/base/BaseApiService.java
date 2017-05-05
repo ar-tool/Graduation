@@ -4,6 +4,7 @@ package com.oujian.graduation.net.base;
 
 import com.oujian.graduation.net.entity.ChatEntity;
 import com.oujian.graduation.net.entity.LoginEntity;
+import com.oujian.graduation.net.entity.NewsEntity;
 import com.oujian.graduation.net.entity.NoteEntity;
 import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.net.res.BaseResult;
@@ -41,7 +42,11 @@ public interface BaseApiService {
     @POST("api")
     Observable<BaseResponse<List<NoteEntity>>> getNoteList(@Query("type") String type, @Query("json") String req);
     @POST("api")
+    Observable<BaseResponse<List<NewsEntity>>> getNews(@Query("type") String type);
+    @POST("api")
     Observable<BaseResult> addLike(@Query("type") String type, @Query("json") String req);
+    @POST("api")
+    Observable<BaseResult> cancelLike(@Query("type") String type, @Query("json") String req);
     @POST("api")
     Observable<BaseResult> comment(@Query("type") String type, @Query("json") String req);
     @GET("api")
