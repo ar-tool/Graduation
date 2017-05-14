@@ -77,7 +77,7 @@
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ico_password"/>
-            <com.oujian.graduation.view.ClearEditText
+            <com.oujian.graduation.view.PasswordEditText
                 android:layout_marginLeft="@dimen/dimen_18dp"
                 android:id="@+id/login_password_et"
                 android:layout_width="0dp"

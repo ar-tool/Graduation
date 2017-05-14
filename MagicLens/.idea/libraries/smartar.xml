@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="smartar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/smartar.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

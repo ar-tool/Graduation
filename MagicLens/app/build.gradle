@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "cn.hiscene.MagicLens"
+        minSdkVersion 19
+        targetSdkVersion 22
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/captureimageutils.jar')
+    compile files('libs/gvr_audio.jar')
+    compile files('libs/hiarplayer.jar')
+    compile files('libs/smartar.jar')
+    compile files('libs/unity-classes.jar')
+    compile files('libs/VoicePlugin.jar')
+    compile files('libs/VoiceRegister.jar')
+}
