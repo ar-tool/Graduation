@@ -23,6 +23,7 @@ import com.oujian.graduation.net.res.BaseResponse;
 import com.oujian.graduation.utils.MD5Utils;
 import com.oujian.graduation.utils.PreferencesUtils;
 import com.oujian.graduation.utils.ToastUtils;
+import com.oujian.graduation.view.ClearEditText;
 import com.oujian.graduation.view.PasswordEditText;
 
 import butterknife.Bind;
@@ -53,7 +54,7 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.login_toolBar)
     Toolbar mToolbar;
     @Bind(R.id.login_phone_et)
-    EditText mEditAccount;
+    ClearEditText mEditAccount;
     @Bind(R.id.login_password_et)
     PasswordEditText mEditPassword;
     @Bind(R.id.remind_cb)
